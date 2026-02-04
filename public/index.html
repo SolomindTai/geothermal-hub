@@ -71,14 +71,14 @@
     </div>
   </header>
   <div class="nav-tabs">
-    <button class="nav-tab active" data-section="plants">🏭 地熱電廠</button>
+    <button class="nav-tab active" data-section="papers">📚 論文</button>
+    <button class="nav-tab" data-section="plants">🏭 地熱電廠</button>
     <button class="nav-tab" data-section="exhibitors">🏢 展會廠商</button>
     <button class="nav-tab" data-section="events">📅 展會活動</button>
     <button class="nav-tab" data-section="news">📰 新聞</button>
-    <button class="nav-tab" data-section="papers">📚 論文</button>
   </div>
   <div class="container">
-    <div id="plants" class="section active">
+    <div id="papers" class="section active">
       <div class="search-box">
         <div class="search-row">
           <div class="search-group" style="flex:2"><label>🔍 搜尋</label><input type="text" id="plantQuery" placeholder="電廠名稱、運營商"></div>
@@ -92,7 +92,7 @@
       <div class="results-info"><span id="plantInfo"></span><button class="btn btn-outline btn-small" onclick="loadPlants()">重新載入</button></div>
       <div class="grid" id="plantResults"><div class="loading">載入中...</div></div>
     </div>
-    <div id="exhibitors" class="section">
+    <div id="plants" class="section">
       <div class="search-box">
         <div class="search-row">
           <div class="search-group" style="flex:2"><label>🔍 搜尋</label><input type="text" id="exhibitorQuery" placeholder="公司名稱"></div>
@@ -103,6 +103,10 @@
       </div>
       <div class="results-info"><span id="exhibitorInfo"></span><button class="btn btn-outline btn-small" onclick="searchExhibitors()">重新載入</button></div>
       <div class="grid" id="exhibitorResults"><div class="loading">載入中...</div></div>
+    </div>
+    <div id="exhibitors" class="section">
+      <div class="results-info"><span id="eventInfo"></span><button class="btn btn-outline btn-small" onclick="loadEvents()">重新載入</button></div>
+      <div class="grid" id="eventResults"><div class="loading">載入中...</div></div>
     </div>
     <div id="events" class="section">
       <div class="results-info"><span id="eventInfo"></span><button class="btn btn-outline btn-small" onclick="loadEvents()">重新載入</button></div>
@@ -141,12 +145,12 @@
     async function searchEx(){const p=new URLSearchParams();['exhibitorQuery','exhibitorCategory','exhibitorCountry'].forEach(k=>{const v=document.getElementById(k).value;if(v)p.set(k,v);});const r=await fetch('/api/exhibitors?'+p);renderEx(await r.json());}
     function renderEx(d){const c=document.getElementById('exhibitorResults'),i=document.getElementById('exhibitorInfo');i.innerText=`${d.length} 家廠商`;if(!d.length){c.innerHTML='<div class="loading">無符合條件</div>';return;}c.innerHTML=d.map(e=>`<div class="card"><h3>${cf[e.country]||'🏳️'} ${e.website?`<a href="${e.website}" target="_blank">${e.name}</a>`:e.name}</h3><div class="meta"><span class="tag">${e.category}</span><span class="tag">${e.country}</span></div><p class="description">${e.description||''}</p></div>`).join('');}
     async function loadEv(){try{const r=await fetch('/api/events');const d=await r.json();document.getElementById('eventInfo').innerText=`${d.length} 場活動`;const c=document.getElementById('eventResults');c.innerHTML=d.map(e=>`<div class="card"><h3>📅 ${e.name}</h3><div class="meta"><span class="tag">${e.year}</span><span class="tag">${e.type||''}</span><span class="tag">${e.location||''}</span></div><div class="details"><span><strong>主辦:</strong>${e.organizer||'未知'}</span></div></div>`).join('');}catch(e){}}
-    async function loadN(){try{const r=await fetch('/api/news');const d=await r.json();allN=d.items||[];renderN();}catch(e){}}
+    async function loadN(){try{const r=await fetch('/api/news');const d=await r.json();allN=(d.items||[]).sort((a,b)=>new Date(b.pubDate)-new Date(a.pubDate));renderN();}catch(e){}}
     function renderN(){const c=document.getElementById('newsResults'),i=document.getElementById('newsInfo');i.innerText=`${allN.length} 篇新聞`;if(!allN.length){c.innerHTML='<div class="loading">無資料</div>';return;}c.innerHTML=allN.slice(0,20).map(n=>`<div class="card"><h3>📰 ${n.link?`<a href="${n.link}" target="_blank">${n.title}</a>`:n.title}</h3><div class="meta"><span class="tag">${n.source||'News'}</span><span class="tag">${n.language||''}</span></div><p class="description">${n.summary||''}</p></div>`).join('');}
     async function searchPa(){try{const r=await fetch('/api/papers');const d=await r.json();allP=d.items||[];renderPa();}catch(e){}}
     function renderPa(){const c=document.getElementById('paperResults'),i=document.getElementById('paperInfo'),q=document.getElementById('paperQuery').value.toLowerCase();let f=allP;if(q)f=f.filter(p=>(p.title||'').toLowerCase().includes(q)||(p.authors||'').toLowerCase().includes(q));i.innerText=`${f.length} 篇論文`;if(!f.length){c.innerHTML='<div class="loading">無符合條件</div>';return;}c.innerHTML=f.slice(0,20).map(p=>`<div class="card"><h3>📚 ${p.link?`<a href="${p.link}" target="_blank">${p.title}</a>`:p.title}</h3><div class="meta"><span class="tag">${p.source||'Paper'}</span><span class="tag">${p.published||''}</span></div><p class="description"><strong>${p.authors||''}</strong></p><p class="description">${p.summary||''}</p></div>`).join('');}
-    async function refreshAll(){await loadS();await loadF();await loadPl();await searchEx();await loadEv();await loadN();await searchPa();}
-    async function init(){await loadS();await loadF();await loadPl();await searchEx();await loadEv();await loadN();await searchPa();}
+    async function refreshAll(){await loadS();await loadF();await searchPa();await loadPl();await searchEx();await loadEv();await loadN();}
+    async function init(){await loadS();await loadF();await searchPa();await loadPl();await searchEx();await loadEv();await loadN();}
     init();
   </script>
 </body>
