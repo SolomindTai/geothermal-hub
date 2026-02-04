@@ -1,6 +1,6 @@
 {
   "name": "geothermal-hub",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "全球地熱資訊平台 - 新聞、論文、展會廠商、電廠資料庫",
   "main": "server.js",
   "scripts": {
