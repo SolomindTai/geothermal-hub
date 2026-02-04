@@ -8,88 +8,108 @@
   <script>window.gtranslateSettings = {"default_language":"zh-TW","detect_browser_language":false,"languages":["zh-TW","zh-CN","en","ja","fr","id","ko","de","es"],"wrapper_selector":".gtranslate_wrapper","float_switcher_open_direction":"bottom"}</script>
   <link rel="alternate" type="application/rss+xml" title="Geothermal Hub RSS" href="/rss">
   <style>
-    :root { --primary: #5d9a6b; --primary-light: #7ab88a; --bg: #f8f9fa; --card-bg: #ffffff; --text: #2d3436; --text-muted: #636e72; --border: #e0e0e0; }
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap');
+    :root { --primary: #00f0ff; --primary-dark: #00a8cc; --secondary: #ff6b35; --accent: #a855f7; --bg-dark: #0a0a0f; --bg-card: rgba(20, 20, 35, 0.85); --text-primary: #ffffff; --text-secondary: #a0a0b0; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-    header { background: linear-gradient(135deg, var(--primary), var(--primary-light)); padding: 2rem; text-align: center; color: #fff; position: relative; }
-    header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-    header p { opacity: 0.9; }
-    .author { font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; }
-    .gtranslate_wrapper { position: absolute; top: 1rem; right: 1rem; }
-    .stats-bar { display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
-    .stat-item { background: rgba(255,255,255,0.2); padding: 0.5rem 1.2rem; border-radius: 20px; text-align: center; }
-    .stat-item strong { display: block; font-size: 1.5rem; }
-    .stat-item span { font-size: 0.8rem; opacity: 0.9; }
-    .nav-tabs { display: flex; justify-content: center; gap: 0.5rem; padding: 1rem; background: #fff; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
-    .nav-tab { padding: 0.75rem 1.5rem; background: var(--bg); border: none; border-radius: 8px; cursor: pointer; font-size: 0.95rem; color: var(--text); transition: all 0.2s; }
-    .nav-tab:hover, .nav-tab.active { background: var(--primary); color: #fff; }
-    .sub-tabs { display: flex; gap: 0.5rem; padding: 1rem 2rem; background: #fafafa; border-bottom: 1px solid var(--border); flex-wrap: wrap; overflow-x: auto; }
-    .sub-tab { padding: 0.5rem 1rem; background: transparent; border: 1px solid var(--border); border-radius: 20px; cursor: pointer; font-size: 0.85rem; white-space: nowrap; transition: all 0.2s; }
-    .sub-tab:hover, .sub-tab.active { background: var(--primary); border-color: var(--primary); color: #fff; }
-    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
-    .section { display: none; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.6; min-height: 100vh; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at 20% 20%, rgba(0, 240, 255, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(168, 85, 247, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(255, 107, 53, 0.04) 0%, transparent 50%); z-index: -2; animation: bgPulse 15s ease-in-out infinite alternate; }
+    @keyframes bgPulse { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; } }
+    .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; overflow: hidden; }
+    .particle { position: absolute; width: 4px; height: 4px; background: var(--primary); border-radius: 50%; opacity: 0.3; animation: float 20s infinite linear; }
+    @keyframes float { 0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.3; } 90% { opacity: 0.3; } 100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; } }
+    header { background: linear-gradient(180deg, rgba(10, 10, 20, 0.95) 0%, rgba(10, 10, 20, 0.8) 100%); padding: 2.5rem 2rem; text-align: center; position: relative; border-bottom: 1px solid rgba(0, 240, 255, 0.15); backdrop-filter: blur(20px); }
+    header::before { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--primary), transparent); animation: glowLine 3s ease-in-out infinite; }
+    @keyframes glowLine { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+    header h1 { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem; background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, var(--secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 0 40px rgba(0, 240, 255, 0.5); animation: titleGlow 4s ease-in-out infinite alternate; }
+    @keyframes titleGlow { 0%, 100% { filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.3)); } 50% { filter: drop-shadow(0 0 40px rgba(168, 85, 247, 0.5)); } }
+    header p { color: var(--text-secondary); font-size: 1rem; letter-spacing: 2px; text-transform: uppercase; }
+    .author { font-size: 0.85rem; margin-top: 0.75rem; color: var(--primary); font-weight: 500; }
+    .gtranslate_wrapper { position: absolute; top: 1.5rem; right: 1.5rem; z-index: 100; }
+    .stats-bar { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; flex-wrap: wrap; }
+    .stat-item { background: var(--bg-card); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 16px; padding: 1rem 1.5rem; text-align: center; min-width: 120px; backdrop-filter: blur(10px); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+    .stat-item::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(0, 240, 255, 0.1), transparent); transform: rotate(45deg); transition: all 0.4s; opacity: 0; }
+    .stat-item:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 40px rgba(0, 240, 255, 0.2); }
+    .stat-item:hover::before { opacity: 1; transform: rotate(45deg) translate(50%, 50%); }
+    .stat-item strong { display: block; font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--primary); text-shadow: 0 0 20px rgba(0, 240, 255, 0.5); }
+    .stat-item span { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+    .nav-tabs { display: flex; justify-content: center; gap: 0.75rem; padding: 1.5rem 2rem; background: rgba(10, 10, 20, 0.5); border-bottom: 1px solid rgba(0, 240, 255, 0.1); flex-wrap: wrap; backdrop-filter: blur(10px); }
+    .nav-tab { padding: 0.85rem 1.75rem; background: var(--bg-card); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 12px; cursor: pointer; font-size: 0.9rem; color: var(--text-secondary); transition: all 0.3s ease; font-weight: 500; position: relative; overflow: hidden; }
+    .nav-tab::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.2), transparent); transition: left 0.5s; }
+    .nav-tab:hover::before { left: 100%; }
+    .nav-tab:hover, .nav-tab.active { background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(168, 85, 247, 0.15) 100%); border-color: var(--primary); color: var(--primary); box-shadow: 0 0 30px rgba(0, 240, 255, 0.3); }
+    .sub-tabs { display: flex; gap: 0.5rem; padding: 1rem 2rem; background: rgba(10, 10, 20, 0.3); border-bottom: 1px solid rgba(0, 240, 255, 0.1); flex-wrap: wrap; }
+    .sub-tab { padding: 0.5rem 1.25rem; background: transparent; border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 25px; cursor: pointer; font-size: 0.8rem; color: var(--text-secondary); transition: all 0.3s ease; }
+    .sub-tab:hover, .sub-tab.active { background: linear-gradient(135deg, rgba(168, 85, 247, 0.3) 0%, rgba(0, 240, 255, 0.3) 100%); border-color: var(--accent); color: #fff; box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); }
+    .container { max-width: 1500px; margin: 0 auto; padding: 2.5rem; }
+    .section { display: none; animation: fadeInUp 0.5s ease; }
     .section.active { display: block; }
-    .search-box { background: var(--card-bg); padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 2rem; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .search-box { background: var(--bg-card); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 20px; padding: 2rem; margin-bottom: 2rem; backdrop-filter: blur(20px); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05); }
     .search-row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end; }
     .search-group { flex: 1; min-width: 150px; }
-    .search-group label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem; }
-    .search-group input, .search-group select { width: 100%; padding: 0.6rem; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; }
-    .search-group input:focus, .search-group select:focus { outline: none; border-color: var(--primary); }
-    .btn { padding: 0.6rem 1.5rem; background: var(--primary); color: #fff; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; }
-    .btn:hover { background: var(--primary-light); }
-    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
-    .btn-outline:hover { background: var(--bg); }
-    .btn-small { padding: 0.4rem 1rem; font-size: 0.9rem; }
-    .results-info { margin-bottom: 1rem; color: var(--text-muted); font-size: 0.95rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+    .search-group label { display: block; font-size: 0.75rem; color: var(--primary); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
+    .search-group input, .search-group select { width: 100%; padding: 0.85rem 1.25rem; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 10px; font-size: 0.95rem; color: var(--text-primary); transition: all 0.3s ease; }
+    .search-group input::placeholder { color: var(--text-secondary); }
+    .search-group input:focus, .search-group select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 20px rgba(0, 240, 255, 0.3); }
+    .search-group select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300f0ff' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; }
+    .btn { padding: 0.85rem 2rem; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: #000; border: none; border-radius: 10px; cursor: pointer; font-size: 0.95rem; font-weight: 600; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 240, 255, 0.4); }
+    .btn-outline { background: transparent; border: 1px solid rgba(0, 240, 255, 0.4); color: var(--primary); }
+    .btn-outline:hover { background: rgba(0, 240, 255, 0.1); box-shadow: 0 0 20px rgba(0, 240, 255, 0.2); }
+    .btn-small { padding: 0.5rem 1.25rem; font-size: 0.85rem; }
+    .results-info { margin-bottom: 1.5rem; color: var(--text-secondary); font-size: 0.9rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 1.5rem; }
-    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: transform 0.2s, box-shadow 0.2s; }
-    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
-    .card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem; flex-wrap: wrap; word-break: break-word; }
-    .card h3 a { color: var(--text); text-decoration: none; }
-    .card h3 a:hover { color: var(--primary); }
-    .meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
-    .tag { background: var(--bg); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; color: var(--text-muted); }
-    .tag.category { background: #e8f5e9; color: #2e7d32; }
-    .tag.country { background: #e3f2fd; color: #1565c0; }
-    .tag.capacity { background: #fff3e0; color: #e65100; }
-    .tag.status-operating { background: #e8f5e9; color: #2e7d32; }
-    .tag.status-construction { background: #fff3e0; color: #f57c00; }
-    .tag.status-planned { background: #e3f2fd; color: #1565c0; }
-    .tag.area { background: #fce4ec; color: #c2185b; }
-    .description { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.75rem; line-height: 1.5; }
-    .details { font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 0.75rem; margin-top: 0.5rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+    .card { background: var(--bg-card); border: 1px solid rgba(0, 240, 255, 0.15); border-radius: 20px; padding: 1.75rem; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; backdrop-filter: blur(10px); }
+    .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary)); opacity: 0; transition: opacity 0.3s; }
+    .card:hover { transform: translateY(-8px); border-color: rgba(0, 240, 255, 0.4); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 240, 255, 0.1); }
+    .card:hover::before { opacity: 1; }
+    .card h3 { font-size: 1.15rem; margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.5rem; flex-wrap: wrap; word-break: break-word; color: var(--text-primary); font-weight: 600; }
+    .card h3 a { color: var(--primary); text-decoration: none; transition: all 0.3s; }
+    .card h3 a:hover { color: var(--accent); text-shadow: 0 0 10px rgba(168, 85, 247, 0.5); }
+    .meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .tag { background: rgba(0, 240, 255, 0.1); border: 1px solid rgba(0, 240, 255, 0.2); padding: 0.3rem 0.75rem; border-radius: 20px; font-size: 0.75rem; color: var(--primary); }
+    .tag.category { background: rgba(168, 85, 247, 0.15); border-color: rgba(168, 85, 247, 0.3); color: var(--accent); }
+    .tag.country { background: rgba(255, 107, 53, 0.15); border-color: rgba(255, 107, 53, 0.3); color: var(--secondary); }
+    .tag.capacity { background: rgba(0, 240, 255, 0.2); border-color: rgba(0, 240, 255, 0.4); color: var(--primary); font-weight: 600; }
+    .tag.status-operating { background: rgba(0, 255, 136, 0.15); border-color: rgba(0, 255, 136, 0.3); color: #00ff88; }
+    .tag.status-construction { background: rgba(255, 193, 7, 0.15); border-color: rgba(255, 193, 7, 0.3); color: #ffc107; }
+    .tag.status-planned { background: rgba(0, 150, 255, 0.15); border-color: rgba(0, 150, 255, 0.3); color: #0096ff; }
+    .tag.area { background: rgba(255, 107, 53, 0.2); border-color: rgba(255, 107, 53, 0.4); color: var(--secondary); }
+    .description { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6; }
+    .details { font-size: 0.8rem; color: var(--text-secondary); border-top: 1px solid rgba(0, 240, 255, 0.1); padding-top: 1rem; margin-top: 0.75rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
     .details span { display: flex; align-items: center; gap: 0.3rem; }
-    .details strong { color: var(--text); margin-right: 0.3rem; }
-    .news-date { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem; }
-    footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 3rem; }
-    footer a { color: var(--primary); text-decoration: none; }
-    .loading { text-align: center; padding: 3rem; color: var(--text-muted); }
-    .spinner { width: 40px; height: 40px; border: 4px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
+    .details strong { color: var(--primary); font-weight: 500; }
+    .news-date { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.75rem; }
+    footer { text-align: center; padding: 3rem 2rem; color: var(--text-secondary); font-size: 0.85rem; border-top: 1px solid rgba(0, 240, 255, 0.1); margin-top: 3rem; background: rgba(10, 10, 20, 0.5); }
+    footer a { color: var(--primary); text-decoration: none; transition: all 0.3s; }
+    footer a:hover { color: var(--accent); text-shadow: 0 0 10px rgba(168, 85, 247, 0.5); }
+    .loading { text-align: center; padding: 4rem; color: var(--text-secondary); }
+    .spinner { width: 50px; height: 50px; border: 3px solid rgba(0, 240, 255, 0.2); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1.5rem; box-shadow: 0 0 30px rgba(0, 240, 255, 0.3); }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .refresh-btn { position: fixed; bottom: 2rem; right: 2rem; padding: 1rem 1.5rem; background: var(--primary); color: white; border: none; border-radius: 50px; cursor: pointer; font-size: 1rem; box-shadow: 0 4px 15px rgba(93, 154, 107, 0.3); transition: transform 0.2s; }
-    .refresh-btn:hover { transform: scale(1.05); }
-    .rss-link { display: inline-block; margin-left: 1rem; padding: 0.3rem 0.8rem; background: rgba(255,255,255,0.2); color: #fff; text-decoration: none; border-radius: 15px; font-size: 0.8rem; }
-    .rss-link:hover { background: rgba(255,255,255,0.3); }
-    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .stats-bar { gap: 0.5rem; } .stat-item { padding: 0.4rem 0.8rem; } .stat-item strong { font-size: 1.2rem; } .gtranslate_wrapper { top: 0.5rem; right: 0.5rem; } }
+    .refresh-btn { position: fixed; bottom: 2rem; right: 2rem; padding: 1rem 1.5rem; background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); color: #000; border: none; border-radius: 50px; cursor: pointer; font-size: 1rem; font-weight: 600; box-shadow: 0 10px 40px rgba(0, 240, 255, 0.4); transition: all 0.4s ease; z-index: 1000; }
+    .refresh-btn:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 15px 50px rgba(0, 240, 255, 0.6); }
+    .rss-link { display: inline-block; margin-left: 1rem; padding: 0.4rem 1rem; background: rgba(255, 107, 53, 0.2); border: 1px solid rgba(255, 107, 53, 0.4); color: var(--secondary); text-decoration: none; border-radius: 20px; font-size: 0.8rem; font-weight: 500; transition: all 0.3s; }
+    .rss-link:hover { background: rgba(255, 107, 53, 0.3); box-shadow: 0 0 20px rgba(255, 107, 53, 0.4); }
+    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .stats-bar { gap: 0.75rem; } .stat-item { min-width: 100px; padding: 0.75rem 1rem; } .stat-item strong { font-size: 1.4rem; } header h1 { font-size: 1.8rem; } .container { padding: 1.5rem; } .gtranslate_wrapper { top: 0.75rem; right: 0.75rem; } }
   </style>
 </head>
 <body>
+  <div class="particles" id="particles"></div>
   <header>
     <div class="gtranslate_wrapper"></div>
     <h1>🌋 全球地熱資訊平台</h1>
     <p>Global Geothermal Information Hub</p>
     <p class="author">由 <strong>台灣先進地熱</strong> 整理提供 (2020-2026)</p>
     <div class="stats-bar" id="statsBar">
-      <div class="stat-item"><strong id="statPlants">-</strong><span>電廠</span></div>
+      <div class="stat-item"><strong id="statPlants">-</strong><span>電廠 Plants</span></div>
       <div class="stat-item"><strong id="statCapacity">-</strong><span>MW</span></div>
-      <div class="stat-item"><strong id="statExhibitors">-</strong><span>廠商</span></div>
-      <div class="stat-item"><strong id="statEvents">-</strong><span>活動</span></div>
-      <div class="stat-item"><strong id="statNews">-</strong><span>新聞</span></div>
-      <div class="stat-item"><strong id="statPapers">-</strong><span>論文</span></div>
+      <div class="stat-item"><strong id="statExhibitors">-</strong><span>廠商 Companies</span></div>
+      <div class="stat-item"><strong id="statEvents">-</strong><span>活動 Events</span></div>
+      <div class="stat-item"><strong id="statNews">-</strong><span>新聞 News</span></div>
+      <div class="stat-item"><strong id="statPapers">-</strong><span>論文 Papers</span></div>
     </div>
-    <a href="/rss" class="rss-link" target="_blank">📡 RSS</a>
+    <a href="/rss" class="rss-link" target="_blank">📡 RSS Feed</a>
   </header>
-
   <div class="nav-tabs">
     <button class="nav-tab active" data-section="plants">🏭 地熱電廠</button>
     <button class="nav-tab" data-section="exhibitors">🏢 展會廠商</button>
@@ -97,346 +117,79 @@
     <button class="nav-tab" data-section="news">📰 新聞</button>
     <button class="nav-tab" data-section="papers">📚 論文</button>
   </div>
-
   <div class="container">
-    <!-- Power Plants Section -->
     <div id="plants" class="section active">
       <div class="search-box">
         <div class="search-row">
-          <div class="search-group" style="flex: 2;"><label>🔍 搜尋 Search</label><input type="text" id="plantQuery" placeholder="電廠名稱、運營商... Name/Operator"></div>
-          <div class="search-group"><label>🌍 國家 Country</label><select id="plantCountry"><option value="">全部 All</option></select></div>
-          <div class="search-group"><label>⚡ 類型 Type</label><select id="plantType"><option value="">全部 All</option></select></div>
-          <div class="search-group"><label>📊 狀態 Status</label><select id="plantStatus"><option value="">全部 All</option><option value="Operating">運轉中 Operating</option><option value="Under Construction">建設中 Construction</option><option value="Planned">規劃中 Planned</option></select></div>
-          <div class="search-group"><label>🔋 最小容量 Min Capacity</label><input type="number" id="plantMinCap" placeholder="MW"></div>
+          <div class="search-group" style="flex:2"><label>🔍 搜尋</label><input type="text" id="plantQuery" placeholder="電廠名稱、運營商..."></div>
+          <div class="search-group"><label>🌍 國家</label><select id="plantCountry"><option value="">全部</option></select></div>
+          <div class="search-group"><label>⚡ 類型</label><select id="plantType"><option value="">全部</option></select></div>
+          <div class="search-group"><label>📊 狀態</label><select id="plantStatus"><option value="">全部</option><option value="Operating">運轉中</option><option value="Under Construction">建設中</option><option value="Planned">規劃中</option></select></div>
           <button class="btn" onclick="searchPlants()">🔍 搜尋</button>
           <button class="btn btn-outline btn-small" onclick="clearPlantFilters()">清除</button>
         </div>
       </div>
-      <div class="results-info" id="plantInfo"><span></span><button class="btn btn-small btn-outline" onclick="loadPlants()">🔄 重新載入</button></div>
-      <div class="grid" id="plantResults"><div class="loading"><div class="spinner"></div>載入中... Loading...</div></div>
+      <div class="results-info" id="plantInfo"><span></span><button class="btn btn-small btn-outline" onclick="loadPlants()">🔄</button></div>
+      <div class="grid" id="plantResults"><div class="loading"><div class="spinner"></div>載入中...</div></div>
     </div>
-
-    <!-- Exhibitors Section -->
     <div id="exhibitors" class="section">
       <div class="search-box">
         <div class="search-row">
-          <div class="search-group" style="flex: 2;"><label>🔍 搜尋 Search</label><input type="text" id="exhibitorQuery" placeholder="公司名稱... Company Name"></div>
-          <div class="search-group"><label>📁 類別 Category</label><select id="exhibitorCategory"><option value="">全部 All</option></select></div>
-          <div class="search-group"><label>🌍 國家 Country</label><select id="exhibitorCountry"><option value="">全部 All</option></select></div>
-          <div class="search-group"><label>📅 年份 Year</label><select id="exhibitorYear"><option value="">全部 All</option><option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option></select></div>
+          <div class="search-group" style="flex:2"><label>🔍 搜尋</label><input type="text" id="exhibitorQuery" placeholder="公司名稱..."></div>
+          <div class="search-group"><label>📁 類別</label><select id="exhibitorCategory"><option value="">全部</option></select></div>
+          <div class="search-group"><label>🌍 國家</label><select id="exhibitorCountry"><option value="">全部</option></select></div>
           <button class="btn" onclick="searchExhibitors()">🔍 搜尋</button>
           <button class="btn btn-outline btn-small" onclick="clearExhibitorFilters()">清除</button>
         </div>
       </div>
-      <div class="results-info" id="exhibitorInfo"><span></span><button class="btn btn-small btn-outline" onclick="searchExhibitors()">🔄 重新載入</button></div>
-      <div class="grid" id="exhibitorResults"><div class="loading"><div class="spinner"></div>載入中... Loading...</div></div>
+      <div class="results-info" id="exhibitorInfo"><span></span><button class="btn btn-small btn-outline" onclick="searchExhibitors()">🔄</button></div>
+      <div class="grid" id="exhibitorResults"><div class="loading"><div class="spinner"></div>載入中...</div></div>
     </div>
-
-    <!-- Events Section -->
     <div id="events" class="section">
-      <div class="results-info" id="eventInfo"><span></span><button class="btn btn-small btn-outline" onclick="loadEvents()">🔄 重新載入</button></div>
-      <div class="grid" id="eventResults"><div class="loading"><div class="spinner"></div>載入中... Loading...</div></div>
+      <div class="results-info" id="eventInfo"><span></span><button class="btn btn-small btn-outline" onclick="loadEvents()">🔄</button></div>
+      <div class="grid" id="eventResults"><div class="loading"><div class="spinner"></div>載入中...</div></div>
     </div>
-
-    <!-- News Section -->
     <div id="news" class="section">
       <div class="sub-tabs">
         <button class="sub-tab active" data-news="tw">🇹🇼 台灣</button>
         <button class="sub-tab" data-news="en">🌍 國際</button>
         <button class="sub-tab" data-news="featured">⭐ 精選</button>
       </div>
-      <div class="results-info" id="newsInfo"><span></span><button class="btn btn-small btn-outline" onclick="loadNews()">🔄 重新載入</button></div>
-      <div class="grid" id="newsResults"><div class="loading"><div class="spinner"></div>載入中... Loading...</div></div>
+      <div class="results-info" id="newsInfo"><span></span><button class="btn btn-small btn-outline" onclick="loadNews()">🔄</button></div>
+      <div class="grid" id="newsResults"><div class="loading"><div class="spinner"></div>載入中...</div></div>
     </div>
-
-    <!-- Papers Section -->
     <div id="papers" class="section">
       <div class="sub-tabs">
         <button class="sub-tab active" data-paper="arxiv">📚 arXiv</button>
         <button class="sub-tab" data-paper="semantic">🔬 Semantic</button>
-        <button class="sub-tab" data-paper="all">📖 全部 All</button>
+        <button class="sub-tab" data-paper="all">📖 全部</button>
       </div>
       <div class="search-box">
         <div class="search-row">
-          <div class="search-group" style="flex: 2;"><label>🔍 搜尋論文 Search Papers</label><input type="text" id="paperQuery" placeholder="標題、關鍵字... Title/Keywords"></div>
-          <div class="search-group"><label>📅 年份 Year</label><select id="paperYear"><option value="">全部 All</option><option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option></select></div>
-          <button class="btn" onclick="searchPapers()">🔍 搜尋</button>
+          <div class="search-group" style="flex:2"><label>🔍 搜尋論文</label><input type="text" id="paperQuery" placeholder="標題、關鍵字..."></div>
+          <button class="btn" onclick="searchPapers()">🔍</button>
         </div>
       </div>
-      <div class="results-info" id="paperInfo"><span></span><button class="btn btn-small btn-outline" onclick="searchPapers()">🔄 重新載入</button></div>
-      <div class="grid" id="paperResults"><div class="loading"><div class="spinner"></div>載入論文中... Loading Papers...</div></div>
+      <div class="results-info" id="paperInfo"><span></span><button class="btn btn-small btn-outline" onclick="searchPapers()">🔄</button></div>
+      <div class="grid" id="paperResults"><div class="loading"><div class="spinner"></div>載入論文中...</div></div>
     </div>
   </div>
-
-  <button class="refresh-btn" onclick="refreshAllData()">🔄 更新</button>
-
+  <button class="refresh-btn" onclick="refreshAllData()">🔄</button>
   <footer>
     <p>© 2026 <strong>台灣先進地熱</strong> | Taiwan Advanced Geothermal</p>
     <p>資料來源：ThinkGeoEnergy, IGA, GRC, GeoTHERM, arXiv, 各國能源機構</p>
     <p><a href="https://github.com/SolomindTai/geothermal-hub" target="_blank">GitHub</a> | <a href="https://geothermal-news-production.up.railway.app/" target="_blank">News Hub</a></p>
   </footer>
-
   <script>
-    const countryFlags = {'USA': '🇺🇸', 'Germany': '🇩🇪', 'Japan': '🇯🇵', 'Italy': '🇮🇹', 'Iceland': '🇮🇸', 'Sweden': '🇸🇪', 'France': '🇫🇷', 'UK': '🇬🇧', 'Norway': '🇳🇴', 'Denmark': '🇩🇰', 'Canada': '🇨🇦', 'New Zealand': '🇳🇿', 'Indonesia': '🇮🇩', 'Kenya': '🇰🇪', 'Taiwan': '🇹🇼', 'China': '🇨🇳', 'Philippines': '🇵🇭', 'Slovakia': '🇸🇰', 'Mexico': '🇲🇽', 'Turkey': '🇹🇷', 'El Salvador': '🇸🇻', 'Costa Rica': '🇨🇷', 'Ethiopia': '🇪🇹', 'Nicaragua': '🇳🇮', 'Russia': '🇷🇺', 'Belgium': '🇧🇪', 'Poland': '🇵🇱', 'Netherlands': '🇳🇱', 'Switzerland': '🇨🇭', 'Austria': '🇦🇹', 'Hungary': '🇭🇺', 'Romania': '🇷🇴', 'Czech Republic': '🇨🇿', 'Dominica': '🇩🇬'};
-    let allNewsData = [];
-    let allPapersData = [];
-    let currentNewsFilter = 'tw';
-    let currentPaperFilter = 'arxiv';
-
-    document.querySelectorAll('.nav-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById(tab.dataset.section).classList.add('active');
-      });
-    });
-
-    document.querySelectorAll('.sub-tab[data-news]').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.sub-tab[data-news]').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        currentNewsFilter = tab.dataset.news;
-        filterAndRenderNews();
-      });
-    });
-
-    document.querySelectorAll('.sub-tab[data-paper]').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.sub-tab[data-paper]').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        currentPaperFilter = tab.dataset.paper;
-        filterAndRenderPapers();
-      });
-    });
-
-    async function loadStats() {
-      try {
-        const res = await fetch('/api/stats');
-        const stats = await res.json();
-        document.getElementById('statPlants').textContent = stats.plants || 0;
-        document.getElementById('statCapacity').textContent = Math.round(stats.totalCapacity || 0).toLocaleString();
-        document.getElementById('statExhibitors').textContent = stats.exhibitors || 0;
-        document.getElementById('statEvents').textContent = stats.events || 0;
-        document.getElementById('statNews').textContent = stats.news || 0;
-        document.getElementById('statPapers').textContent = stats.papers || 0;
-      } catch (e) { console.error('Failed to load stats:', e); }
-    }
-
-    async function loadFilterOptions() {
-      try {
-        const [pCountries, pTypes, eCategories, eCountries] = await Promise.all([
-          fetch('/api/plant-countries').then(r => r.json()),
-          fetch('/api/plant-types').then(r => r.json()),
-          fetch('/api/exhibitor-categories').then(r => r.json()),
-          fetch('/api/exhibitor-countries').then(r => r.json())
-        ]);
-        pCountries.forEach(c => { document.getElementById('plantCountry').add(new Option(`${countryFlags[c]||'🏳️'} ${c}`, c)); });
-        pTypes.forEach(t => { document.getElementById('plantType').add(new Option(t, t)); });
-        eCategories.forEach(c => { document.getElementById('exhibitorCategory').add(new Option(c, c)); });
-        eCountries.forEach(c => { document.getElementById('exhibitorCountry').add(new Option(`${countryFlags[c]||'🏳️'} ${c}`, c)); });
-      } catch (e) { console.error('Failed to load filter options:', e); }
-    }
-
-    async function loadPlants() {
-      try {
-        const res = await fetch('/api/plants');
-        const data = await res.json();
-        renderPlants(data);
-      } catch (e) { console.error('Failed to load plants:', e); }
-    }
-
-    async function searchPlants() {
-      const params = new URLSearchParams();
-      if (document.getElementById('plantQuery').value) params.set('q', document.getElementById('plantQuery').value);
-      if (document.getElementById('plantCountry').value) params.set('country', document.getElementById('plantCountry').value);
-      if (document.getElementById('plantType').value) params.set('type', document.getElementById('plantType').value);
-      if (document.getElementById('plantStatus').value) params.set('status', document.getElementById('plantStatus').value);
-      if (document.getElementById('plantMinCap').value) params.set('min_capacity', document.getElementById('plantMinCap').value);
-      const res = await fetch(`/api/plants?${params}`);
-      const data = await res.json();
-      renderPlants(data);
-    }
-
-    function renderPlants(data) {
-      const container = document.getElementById('plantResults');
-      const info = document.getElementById('plantInfo').querySelector('span');
-      const totalCap = data.reduce((sum, p) => sum + (p.capacity_mw || 0), 0);
-      info.textContent = `找到 ${data.length} 座電廠，總容量 ${Math.round(totalCap).toLocaleString()} MW | Found ${data.length} plants, ${Math.round(totalCap).toLocaleString()} MW total`;
-      if (!data.length) { container.innerHTML = '<p style="text-align:center;color:var(--text-muted);grid-column:1/-1">無符合條件 No results found</p>'; return; }
-      container.innerHTML = data.map(p => {
-        const statusClass = p.status === 'Operating' ? 'status-operating' : p.status === 'Under Construction' ? 'status-construction' : 'status-planned';
-        return `<div class="card">
-          <h3>${countryFlags[p.country]||'🏳️'} ${p.name}</h3>
-          <div class="meta">
-            <span class="tag capacity">⚡ ${p.capacity_mw?.toLocaleString()||'?'} MW</span>
-            <span class="tag ${statusClass}">${p.status||''}</span>
-            <span class="tag">${p.plant_type||''}</span>
-            ${p.area_km2 ? `<span class="tag area">📐 ${p.area_km2} km²</span>` : ''}
-          </div>
-          <p class="description">${p.description||''}</p>
-          <div class="details">
-            <span><strong>運營商:</strong> ${p.operator||'-'}</span>
-            <span><strong>Operator:</strong> ${p.operator||'-'}</span>
-            <span><strong>地區:</strong> ${p.region||'-'}</span>
-            <span><strong>Region:</strong> ${p.region||'-'}</span>
-            <span><strong>溫度:</strong> ${p.reservoir_temp_c?p.reservoir_temp_c+'°C':'-'}</span>
-            <span><strong>Depth:</strong> ${p.reservoir_depth_m?p.reservoir_depth_m.toLocaleString()+'m':'-'}</span>
-            <span><strong>併網:</strong> ${p.grid_connection||'-'}</span>
-            <span><strong>Wells:</strong> ${p.well_count||'-'}</span>
-          </div>
-        </div>`;
-      }).join('');
-    }
-
-    function clearPlantFilters() {
-      document.getElementById('plantQuery').value = '';
-      document.getElementById('plantCountry').value = '';
-      document.getElementById('plantType').value = '';
-      document.getElementById('plantStatus').value = '';
-      document.getElementById('plantMinCap').value = '';
-      loadPlants();
-    }
-
-    async function searchExhibitors() {
-      const params = new URLSearchParams();
-      if (document.getElementById('exhibitorQuery').value) params.set('q', document.getElementById('exhibitorQuery').value);
-      if (document.getElementById('exhibitorCategory').value) params.set('category', document.getElementById('exhibitorCategory').value);
-      if (document.getElementById('exhibitorCountry').value) params.set('country', document.getElementById('exhibitorCountry').value);
-      if (document.getElementById('exhibitorYear').value) params.set('year', document.getElementById('exhibitorYear').value);
-      const res = await fetch(`/api/exhibitors?${params}`);
-      const data = await res.json();
-      renderExhibitors(data);
-    }
-
-    function renderExhibitors(data) {
-      const container = document.getElementById('exhibitorResults');
-      const info = document.getElementById('exhibitorInfo').querySelector('span');
-      info.textContent = `找到 ${data.length} 家廠商 | ${data.length} companies found`;
-      if (!data.length) { container.innerHTML = '<p style="text-align:center;color:var(--text-muted);grid-column:1/-1">無符合條件 No results</p>'; return; }
-      container.innerHTML = data.map(e => `<div class="card">
-        <h3>${countryFlags[e.country]||'🏳️'} ${e.website?`<a href="${e.website}" target="_blank" rel="noopener">${e.name}</a>`:e.name}</h3>
-        <div class="meta">
-          <span class="tag category">${e.category}</span>
-          ${e.subcategory?`<span class="tag">${e.subcategory}</span>`:''}
-          <span class="tag country">${e.country}</span>
-        </div>
-        <p class="description">${e.description||''}</p>
-        ${e.events_list?`<div class="details"><span><strong>參展:</strong> ${e.events_list}</span></div>`:''}
-      </div>`).join('');
-    }
-
-    function clearExhibitorFilters() {
-      document.getElementById('exhibitorQuery').value = '';
-      document.getElementById('exhibitorCategory').value = '';
-      document.getElementById('exhibitorCountry').value = '';
-      document.getElementById('exhibitorYear').value = '';
-      searchExhibitors();
-    }
-
-    async function loadEvents() {
-      const res = await fetch('/api/events');
-      const data = await res.json();
-      renderEvents(data);
-    }
-
-    function renderEvents(data) {
-      const container = document.getElementById('eventResults');
-      const info = document.getElementById('eventInfo').querySelector('span');
-      info.textContent = `共 ${data.length} 場展會活動 | ${data.length} events`;
-      if (!data.length) { container.innerHTML = '<p style="text-align:center;color:var(--text-muted)">暫無資料 No data</p>'; return; }
-      container.innerHTML = data.map(e => `<div class="card">
-        <h3>📅 ${e.name}</h3>
-        <div class="meta">
-          <span class="tag">${e.year}</span>
-          <span class="tag category">${e.type||''}</span>
-          <span class="tag">${e.location||''}</span>
-        </div>
-        <div class="details">
-          <span><strong>主辦:</strong> ${e.organizer||'未知'}</span>
-          <span><strong>Website:</strong> ${e.website?`<a href="${e.website}" target="_blank">Link</a>`:'-'}</span>
-        </div>
-      </div>`).join('');
-    }
-
-    async function loadNews() {
-      try {
-        const res = await fetch('/api/news');
-        const data = await res.json();
-        allNewsData = data.items || [];
-        filterAndRenderNews();
-      } catch (e) { console.error('Failed to load news:', e); }
-    }
-
-    function filterAndRenderNews() {
-      const container = document.getElementById('newsResults');
-      const info = document.getElementById('newsInfo').querySelector('span');
-      let filtered = allNewsData;
-      if (currentNewsFilter === 'tw') filtered = allNewsData.filter(n => n.language === 'zh-TW');
-      else if (currentNewsFilter === 'en') filtered = allNewsData.filter(n => n.language === 'en');
-      else if (currentNewsFilter === 'featured') filtered = allNewsData.filter(n => n.source && ['ThinkGeoEnergy', 'CleanTechnica', 'NREL', 'DOE'].includes(n.source));
-      info.textContent = `共 ${filtered.length} 篇新聞 | ${filtered.length} articles`;
-      if (!filtered.length) { container.innerHTML = '<p style="text-align:center;color:var(--text-muted)">暫無資料 No data</p>'; return; }
-      container.innerHTML = filtered.slice(0, 20).map(n => `<div class="card">
-        <h3>📰 ${n.title}</h3>
-        <div class="meta">
-          <span class="tag">${n.source||'News'}</span>
-          <span class="tag country">${n.language||''}</span>
-        </div>
-        <p class="description">${n.summary||''}</p>
-        <p class="news-date">📅 ${n.pubDate ? new Date(n.pubDate).toLocaleDateString('zh-TW') : ''}</p>
-      </div>`).join('');
-    }
-
-    async function searchPapers() {
-      try {
-        const res = await fetch('/api/papers');
-        const data = await res.json();
-        allPapersData = data.items || [];
-        filterAndRenderPapers();
-      } catch (e) { console.error('Failed to load papers:', e); }
-    }
-
-    function filterAndRenderPapers() {
-      const container = document.getElementById('paperResults');
-      const info = document.getElementById('paperInfo').querySelector('span');
-      let filtered = allPapersData;
-      if (currentPaperFilter === 'arxiv') filtered = allPapersData.filter(p => p.source === 'arXiv');
-      else if (currentPaperFilter === 'semantic') filtered = allPapersData.filter(p => p.source === 'Semantic Scholar');
-      const yearFilter = document.getElementById('paperYear').value;
-      if (yearFilter) filtered = filtered.filter(p => p.published && p.published.startsWith(yearFilter));
-      const query = document.getElementById('paperQuery').value.toLowerCase();
-      if (query) filtered = filtered.filter(p => (p.title && p.title.toLowerCase().includes(query)) || (p.authors && p.authors.toLowerCase().includes(query)) || (p.summary && p.summary.toLowerCase().includes(query)));
-      info.textContent = `共 ${filtered.length} 篇論文 | ${filtered.length} papers`;
-      if (!filtered.length) { container.innerHTML = '<p style="text-align:center;color:var(--text-muted)">暫無資料 No data</p>'; return; }
-      container.innerHTML = filtered.slice(0, 20).map(p => `<div class="card">
-        <h3>📚 ${p.title}</h3>
-        <div class="meta">
-          <span class="tag">${p.source||'Paper'}</span>
-          <span class="tag">${p.published||''}</span>
-        </div>
-        <p class="description"><strong>👥</strong> ${p.authors||''}</p>
-        <p class="description">${p.summary||''}</p>
-      </div>`).join('');
-    }
-
-    async function refreshAllData() {
-      loadStats();
-      loadFilterOptions();
-      loadPlants();
-      searchExhibitors();
-      loadEvents();
-      loadNews();
-      searchPapers();
-    }
-
-    loadStats();
-    loadFilterOptions();
-    loadPlants();
-    searchExhibitors();
-    loadEvents();
-    loadNews();
-    searchPapers();
-  </script>
-</body>
-</html>
+    const particles = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) { const p = document.createElement('div'); p.className = 'particle'; p.style.left = Math.random() * 100 + '%'; p.style.animationDelay = Math.random() * 20 + 's'; p.style.animationDuration = (15 + Math.random() * 10) + 's'; particles.appendChild(p); }
+    const countryFlags = {'USA':'🇺🇸','Germany':'🇩🇪','Japan':'🇯🇵','Italy':'🇮🇹','Iceland':'🇮🇸','Sweden':'🇸🇪','France':'🇫🇷','UK':'🇬🇧','Norway':'🇳🇴','Denmark':'🇩🇰','Canada':'🇨🇦','New Zealand':'🇳🇿','Indonesia':'🇮🇩','Kenya':'🇰🇪','Taiwan':'🇹🇼','China':'🇨🇳','Philippines':'🇵🇭','Slovakia':'🇸🇰','Mexico':'🇲🇽','Turkey':'🇹🇷','El Salvador':'🇸🇻','Costa Rica':'🇨🇷','Ethiopia':'🇪🇹','Nicaragua':'🇳🇮','Russia':'🇷🇺','Belgium':'🇧🇪','Poland':'🇵🇱','Netherlands':'🇳🇱','Switzerland':'🇨🇭','Austria':'🇦🇹','Hungary':'🇭🇺','Romania':'🇷🇴','Czech Republic':'🇨🇿','Dominica':'🇩🇬','Guadeloupe':'🇬🇵','Honduras':'🇭🇳','Papua New Guinea':'🇵🇬'};
+    let allNewsData = [], allPapersData = [], currentNewsFilter = 'tw', currentPaperFilter = 'arxiv';
+    document.querySelectorAll('.nav-tab').forEach(tab => { tab.addEventListener('click', () => { document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active')); document.querySelectorAll('.section').forEach(s => s.classList.remove('active')); tab.classList.add('active'); document.getElementById(tab.dataset.section).classList.add('active'); }); });
+    document.querySelectorAll('.sub-tab[data-news]').forEach(tab => { tab.addEventListener('click', () => { document.querySelectorAll('.sub-tab[data-news]').forEach(t => t.classList.remove('active')); tab.classList.add('active'); currentNewsFilter = tab.dataset.news; filterAndRenderNews(); }); });
+    document.querySelectorAll('.sub-tab[data-paper]').forEach(tab => { tab.addEventListener('click', () => { document.querySelectorAll('.sub-tab[data-paper]').forEach(t => t.classList.remove('active')); tab.classList.add('active'); currentPaperFilter = tab.dataset.paper; filterAndRenderPapers(); }); });
+    async function loadStats() { try { const res = await fetch('/api/stats'); const stats = await res.json(); ['Plants','Capacity','Exhibitors','Events','News','Papers'].forEach(k => { const el = document.getElementById('stat' + k); if(el) el.textContent = k === 'Capacity' ? Math.round(stats.totalCapacity || 0).toLocaleString() : (stats[k.toLowerCase()] || 0); }); } catch (e) {} }
+    async function loadFilterOptions() { try { const [pC, pT, eC, eCo] = await Promise.all([fetch('/api/plant-countries').then(r => r.json()), fetch('/api/plant-types').then(r => r.json()), fetch('/api/exhibitor-categories').then(r => r.json()), fetch('/api/exhibitor-countries').then(r => r.json())]); [pC,pT,eC,eCo].forEach((arr,idx) => { const sel = [document.getElementById('plantCountry'),document.getElementById('plantType'),document.getElementById('exhibitorCategory'),document.getElementById('exhibitorCountry')][idx]; if(sel) arr.forEach(c => sel.add(new Option((idx<2?countryFlags[c]:'')+' '+c,c)); }); } catch (e) {} }
+    async function loadPlants() { try { renderPlants(await (await fetch('/api/plants')).json()); } catch (e) {} }
+    async function searchPlants() { const p=new URLSearchParams(); if(document.getElementById('plantQuery').value)p.set('q',document.getElementById('plantQuery').value); if(document.getElementById('plantCountry').value)p.set('country',document.getElementById('plantCountry').value); if(document.getElementById('plantType').value)p.set('type',document.getElementById('plantType').value); if(document.getElementById('plantStatus').value)p.set('status',document.getElementById('plantStatus').value); renderPlants(await (await fetch('/api/plants?'+p)).json()); }
+    function renderPlants(data) { const c=document.getElementById('plantResults'), i=document.getElementById('plantInfo').querySelector('span'); const tot=data.reduce((s,p)=>s+(p.capacity_mw||0),0); i.textContent=`找到 ${data.length} 座電廠，總容量 ${Math.round(tot).toLocaleString()} MW`; if(!data.length){c.innerHTML='<p style="text-align:center;color:#a0a0b0">無符合條件</p>';return;} c.innerHTML=data.map(p=>{const sc=p.status==='Operating'?'status-operating':p.status==='Under Construction'?'status-construction':'status-planned';return`<div class="card"><h3>${countryFlags[p.country]||'🏳️'} ${p.name}</h3><div class="meta"><span class="tag capacity">⚡ ${p.capacity_mw?.toLocaleString()||'?'} MW</span><span class="tag ${sc}">${p.status||''}</span><span class="tag">${p.plant_type||''}</span>${p.area_km2?`<span class="tag area">📐 ${p.area_km2} km²</span>`:''}</div><p class="description">${p.description||''}</p><div class="details"><span><strong>運營商:</strong>
