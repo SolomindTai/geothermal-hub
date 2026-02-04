@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🌋 全球地熱資訊平台 | Taiwan Advanced Geothermal</title>
+  <title>🌋 🌋 全球地熱資訊平台 | Taiwan Advanced Geothermal</title>
   <link rel="alternate" type="application/rss+xml" title="Geothermal Hub RSS" href="/rss">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -59,7 +59,7 @@
 </head>
 <body>
   <header>
-    <h1>🌋 全球地熱資訊平台</h1>
+    <h1>🌋 🌋 全球地熱資訊平台</h1>
     <p>Global Geothermal Information Hub</p>
     <p style="font-size:0.8rem;color:#aaa;margin-top:0.3rem">由 台灣先進地熱 整理提供 (2020-2026)</p>
     <div class="stats-bar">
@@ -73,6 +73,7 @@
   </header>
   <div class="nav-tabs">
     <button class="nav-tab active" data-section="papers">📚 論文</button>
+    <button class="nav-tab" data-section="podcasts">🎙️ Podcasts</button>
     <button class="nav-tab" data-section="plants">🏭 地熱電廠</button>
     <button class="nav-tab" data-section="exhibitors">🏢 展會廠商</button>
     <button class="nav-tab" data-section="events">📅 展會活動</button>
@@ -88,6 +89,16 @@
       </div>
       <div class="results-info"><span id="paperInfo"></span><button class="btn btn-outline btn-small" onclick="searchPapers()">重新載入</button></div>
       <div class="grid" id="paperResults"><div class="loading">載入論文中...</div></div>
+    </div>
+    <div id="podcasts" class="section">
+      <div class="search-box">
+        <div class="search-row">
+          <div class="search-group" style="flex:2"><label>🎙️ NotebookLM 論文 Podcast</label><p style="font-size:0.8rem;color:#888;margin-top:0.3rem">使用 AI 生成的 Podcast 來聆聽研究論文內容</p></div>
+          <button class="btn" onclick="loadPodcasts()">重新載入</button>
+        </div>
+      </div>
+      <div class="results-info"><span id="podcastInfo"></span></div>
+      <div class="grid" id="podcastResults"><div class="loading">載入Podcast中...</div></div>
     </div>
     <div id="plants" class="section">
       <div class="search-box">
@@ -145,8 +156,10 @@
     function renderNews(){const c=document.getElementById('newsResults'),i=document.getElementById('newsInfo');i.innerText=`${allN.length} 篇新聞`;if(!allN.length){c.innerHTML='<div class="loading">無資料</div>';return;}const su={'Stanford Report':'https://news.stanford.edu','The Guardian':'https://www.theguardian.com','pv magazine USA':'https://pv-magazine-usa.com','Living on Earth':'https://www.loe.org','Digg':'https://digg.com','Sustainability Magazine':'https://sustainabilitymag.com','Inside Climate News':'https://insideclimatenews.org','NREL':'https://www.nrel.gov','CleanTechnica':'https://cleantechnica.com','World Oil':'https://www.worldoil.com','香港文匯網':'https://www.hkwenweipo.com','原住民族文化事業基金會':'https://www.ipcf.org.tw','環境資訊中心':'https://e-info.org.tw','CSR@天下':'https://csr.cw.com.tw','倡議家':'https://theinitium.com/channel/advocacy','Yahoo':'https://tw.news.yahoo.com','Reccessary':'https://www.recessary.com','中央社 CNA':'https://www.cna.com.tw','moea.gov.tw':'https://www.moea.gov.tw','今周刊':'https://www.businesstoday.com.tw'};c.innerHTML=allN.slice(0,20).map(n=>`<div class="card"><h3>📰 ${n.title}</h3><div class="meta"><span class="tag"><a href="${su[n.source]||'#'}" target="_blank" style="color:inherit;text-decoration:none">${n.source||'News'}</a></span></div></div>`).join('');}
     async function searchPapers(){try{const r=await fetch('/api/papers');const d=await r.json();allP=d.items||[];renderPapers();}catch(e){}}
     function renderPapers(){const c=document.getElementById('paperResults'),i=document.getElementById('paperInfo'),q=document.getElementById('paperQuery').value.toLowerCase();let f=allP;if(q)f=f.filter(p=>(p.title||'').toLowerCase().includes(q)||(p.authors||'').toLowerCase().includes(q));i.innerText=`${f.length} 篇論文`;if(!f.length){c.innerHTML='<div class="loading">無符合條件</div>';return;}const su={'arXiv':'https://arxiv.org','Semantic Scholar':'https://www.semanticscholar.org'};c.innerHTML=f.slice(0,20).map(p=>`<div class="card"><h3>📚 ${p.title}</h3><div class="meta"><span class="tag"><a href="${p.link}" target="_blank" style="color:inherit;text-decoration:none">${su[p.source]?'📄 '+p.source:p.source||'Paper'}</a></span><span class="tag">${p.published?.split('T')[0]||''}</span>${p.notebooklmUrl?`<a href="${p.notebooklmUrl}" target="_blank" style="margin-left:0.3rem;color:#2d5a3d;font-size:0.75rem;background:#e8f5e9;padding:0.15rem 0.4rem;border-radius:3px;text-decoration:none">🎙️ Podcast</a>`:''}</div><p class="description"><strong>${p.authors||''}</strong></p><p class="description">${p.summary?.substring(0,200)}${p.summary?.length>200?'...':''}</p></div>`).join('');}
-    async function refreshAll(){await loadStats();await loadFilters();await searchPapers();await loadPlants();await searchExhibitors();await loadEvents();await loadNews();}
-    async function init(){await loadStats();await loadFilters();await searchPapers();await loadPlants();await searchExhibitors();await loadEvents();await loadNews();}
+    async function loadPodcasts(){try{const r=await fetch('/api/podcasts');const d=await r.json();renderPodcasts(d.items||[]);}catch(e){console.error('Podcasts error:',e);}}
+    function renderPodcasts(d){const c=document.getElementById('podcastResults'),i=document.getElementById('podcastInfo');i.innerText=`${d.length} 個 Podcast 可用`;if(!d.length){c.innerHTML='<div class="loading">暫無 Podcast，請使用 Skill 新增</div>';return;}c.innerHTML=d.map(p=>`<div class="card"><h3>🎙️ ${p.title}</h3><div class="meta"><span class="tag"><a href="${p.link}" target="_blank" style="color:inherit;text-decoration:none">📄 ${p.source||'Paper'}</a></span><span class="tag">${p.published?.split('T')[0]||''}</span></div><p class="description"><strong>${p.authors||''}</strong></p><p class="description">${p.summary?.substring(0,150)}${p.summary?.length>150?'...':''}</p><div style="margin-top:0.8rem;padding-top:0.8rem;border-top:1px solid #f0f0f0"><a href="${p.notebooklm_url}" target="_blank" style="display:inline-flex;align-items:center;gap:0.4rem;background:#2d5a3d;color:#fff;padding:0.5rem 1rem;border-radius:4px;text-decoration:none;font-size:0.85rem"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> 🎧 聆聽 Podcast</a> <a href="${p.notebooklm_url}" download style="margin-left:0.5rem;color:#666;font-size:0.8rem;text-decoration:none;padding:0.5rem 1rem;border:1px solid #ddd;border-radius:4px">⬇️ 下載</a></div></div>`).join('');}
+    async function refreshAll(){await loadStats();await loadFilters();await searchPapers();await loadPodcasts();await loadPlants();await searchExhibitors();await loadEvents();await loadNews();}
+    async function init(){await loadStats();await loadFilters();await searchPapers();await loadPodcasts();await loadPlants();await searchExhibitors();await loadEvents();await loadNews();}
     init();
   </script>
 </body>
