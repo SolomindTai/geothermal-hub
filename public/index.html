@@ -141,12 +141,13 @@
     async function searchEx(){const p=new URLSearchParams();['exhibitorQuery','exhibitorCategory','exhibitorCountry'].forEach(k=>{const v=document.getElementById(k).value;if(v)p.set(k,v);});renderEx(await(await fetch('/api/exhibitors?'+p)).json());}
     function renderEx(d){const c=document.getElementById('exhibitorResults'),i=document.getElementById('exhibitorInfo');i.innerText=`${d.length} 家廠商`;if(!d.length){c.innerHTML='<div class="loading">無符合條件</div>';return;}c.innerHTML=d.map(e=>`<div class="card"><h3>${cf[e.country]||'🏳️'} ${e.website?`<a href="${e.website}" target="_blank">${e.name}</a>`:e.name}</h3><div class="meta"><span class="tag">${e.category}</span><span class="tag">${e.country}</span></div><p class="description">${e.description||''}</p></div>`).join('');}
     async function loadEv(){try{const d=await(await fetch('/api/events')).json();document.getElementById('eventInfo').innerText=`${d.length} 場活動`;const c=document.getElementById('eventResults');c.innerHTML=d.map(e=>`<div class="card"><h3>📅 ${e.name}</h3><div class="meta"><span class="tag">${e.year}</span><span class="tag">${e.type||''}</span><span class="tag">${e.location||''}</span></div><div class="details"><span><strong>主辦:</strong>${e.organizer||'未知'}</span></div></div>`).join('');}catch(e){}}
-    async function loadN(){try{allN=(await(await fetch('/api/news')).json()).items||[];renderN();}catch(e){}}
+    async function loadN(){try{allN=((await fetch('/api/news')).json()).items||[];renderN();}catch(e){}}
     function renderN(){const c=document.getElementById('newsResults'),i=document.getElementById('newsInfo');i.innerText=`${allN.length} 篇新聞`;if(!allN.length){c.innerHTML='<div class="loading">無資料</div>';return;}c.innerHTML=allN.slice(0,20).map(n=>`<div class="card"><h3>📰 ${n.title}</h3><div class="meta"><span class="tag">${n.source||'News'}</span><span class="tag">${n.language||''}</span></div><p class="description">${n.summary||''}</p></div>`).join('');}
-    async function searchPa(){try{allP=(await(await fetch('/api/papers')).items||[];renderPa();}catch(e){}}
+    async function searchPa(){try{allP=((await fetch('/api/papers')).json()).items||[];renderPa();}catch(e){}}
     function renderPa(){const c=document.getElementById('paperResults'),i=document.getElementById('paperInfo'),q=document.getElementById('paperQuery').value.toLowerCase();let f=allP;if(q)f=f.filter(p=>(p.title||'').toLowerCase().includes(q)||(p.authors||'').toLowerCase().includes(q));i.innerText=`${f.length} 篇論文`;if(!f.length){c.innerHTML='<div class="loading">無符合條件</div>';return;}c.innerHTML=f.slice(0,20).map(p=>`<div class="card"><h3>📚 ${p.title}</h3><div class="meta"><span class="tag">${p.source||'Paper'}</span><span class="tag">${p.published||''}</span></div><p class="description"><strong>${p.authors||''}</strong></p><p class="description">${p.summary||''}</p></div>`).join('');}
     async function refreshAll(){loadS();loadF();loadPl();searchEx();loadEv();loadN();searchPa();}
-    loadS();loadF();loadPl();searchEx();loadEv();loadN();searchPa();
+    async function init(){loadS();loadF();loadPl();searchEx();loadEv();loadN();await searchPa();}
+    init();
   </script>
 </body>
 </html>
