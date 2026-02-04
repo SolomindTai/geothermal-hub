@@ -5,6 +5,8 @@ const path = require('path');
 // Import from local data files
 const seedData = require(path.join(__dirname, '../data/seed-data.js'));
 const powerPlants = require(path.join(__dirname, '../data/power-plants.js'));
+const newsData = require(path.join(__dirname, '../data/news.json'));
+const papersData = require(path.join(__dirname, '../data/papers.json'));
 
 const dbPath = path.join(__dirname, '../data/geothermal.db');
 
@@ -155,39 +157,38 @@ async function main() {
   }
   insertPlant.free();
 
-  // Insert sample news (placeholder - would be fetched dynamically)
-  const now = new Date().toISOString();
+  // Insert news from JSON file
   const insertNews = db.prepare(`
     INSERT INTO news (title, link, pubDate, source, language, summary)
     VALUES (?, ?, ?, ?, ?, ?)
   `);
 
-  const sampleNews = [
-    { title: 'Global geothermal capacity reaches 17,173 MW by end of 2025', source: 'ThinkGeoEnergy', lang: 'en', summary: 'ThinkGeoEnergy annual report shows continued growth in global geothermal power generation.' },
-    { title: 'Fervo Energy Cape Station project on track for 2026', source: 'CleanTechnica', lang: 'en', summary: 'Google-backed EGS project in Utah advancing toward commercial operation.' },
-    { title: '印尼地熱發電量持續成長，2025年新增330MW', source: '中央社', lang: 'zh-TW', summary: '印尼能源部公布最新地熱裝置容量數據。' },
-    { title: '台灣地熱發展腳步加快，清水电厂商转成功', source: '工商时报', lang: 'zh-TW', summary: '台湾首座商转地热电厂运营状况良好。' },
+  // Combine English and Chinese news
+  const allNews = [
+    ...(newsData.english || []).map(n => ({ ...n, language: 'en' })),
+    ...(newsData.chinese || []).map(n => ({ ...n, language: 'zh-TW' })),
   ];
 
-  for (const news of sampleNews) {
-    insertNews.run([news.title, '#', now, news.source, news.lang, news.summary]);
+  for (const news of allNews) {
+    insertNews.run([news.title, news.link, news.pubDate, news.source, news.language, news.summary || '']);
   }
   insertNews.free();
 
-  // Insert sample papers (placeholder)
+  // Insert papers from JSON file
   const insertPaper = db.prepare(`
     INSERT INTO papers (title, link, authors, summary, published, source)
     VALUES (?, ?, ?, ?, ?, ?)
   `);
 
-  const samplePapers = [
-    { title: 'Enhanced Geothermal Systems: Current Status and Future Prospects', authors: 'DOE Geothermal Technologies Office', summary: 'Comprehensive review of EGS technology development and deployment strategies.', published: '2025-12', source: 'arXiv' },
-    { title: 'Global Geothermal Power Potential Assessment', authors: 'IRENA', summary: 'Assessment of technically recoverable geothermal resources worldwide.', published: '2025-11', source: 'Semantic Scholar' },
-    { title: '地熱發電在台灣的發展潛力與挑戰', authors: '台灣地熱協會', summary: '分析台灣地熱資源分布與開發前景。', published: '2025-10', source: 'Taiwan' },
+  // Combine papers from different sources
+  const allPapers = [
+    ...(papersData.arxiv || []),
+    ...(papersData.semantic || []),
+    ...(papersData.other || []),
   ];
 
-  for (const paper of samplePapers) {
-    insertPaper.run([paper.title, '#', paper.authors, paper.summary, paper.published, paper.source]);
+  for (const paper of allPapers) {
+    insertPaper.run([paper.title, paper.link, paper.authors, paper.summary, paper.published, paper.source]);
   }
   insertPaper.free();
 
@@ -200,8 +201,8 @@ async function main() {
   console.log(`   Events: ${seedData.events.length}`);
   console.log(`   Exhibitors: ${seedData.exhibitors.length}`);
   console.log(`   Power Plants: ${powerPlants.powerPlants.length}`);
-  console.log(`   News: ${sampleNews.length}`);
-  console.log(`   Papers: ${samplePapers.length}`);
+  console.log(`   News: ${allNews.length}`);
+  console.log(`   Papers: ${allPapers.length}`);
 
   db.close();
 }
