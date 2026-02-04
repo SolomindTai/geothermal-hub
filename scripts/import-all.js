@@ -68,7 +68,8 @@ async function main() {
       lng REAL,
       description TEXT,
       notes TEXT,
-      source TEXT
+      source TEXT,
+      drilling_contractor TEXT
     );
 
     CREATE TABLE news (
@@ -142,8 +143,8 @@ async function main() {
   const insertPlant = db.prepare(`
     INSERT INTO power_plants (name, country, region, operator, developer, capacity_mw, capacity_installed_mw, 
       plant_type, commissioning_year, reservoir_temp_c, reservoir_depth_m, well_count, area_km2, status,
-      grid_connection, annual_generation_gwh, thermal_output_mw, capacity_factor, lat, lng, description, notes, source)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      grid_connection, annual_generation_gwh, thermal_output_mw, capacity_factor, lat, lng, description, notes, source, drilling_contractor)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
 
   for (const plant of powerPlants.powerPlants) {
@@ -152,7 +153,7 @@ async function main() {
       plant.capacity_mw, plant.capacity_installed_mw, plant.plant_type, plant.commissioning_year,
       plant.reservoir_temp_c, plant.reservoir_depth_m, plant.well_count, plant.area_km2, plant.status,
       plant.grid_connection, plant.annual_generation_gwh, plant.thermal_output_mw || null, plant.capacity_factor,
-      plant.coordinates?.lat, plant.coordinates?.lng, plant.description, plant.notes, plant.source
+      plant.coordinates?.lat, plant.coordinates?.lng, plant.description, plant.notes, plant.source, plant.drilling_contractor || null
     ]);
   }
   insertPlant.free();

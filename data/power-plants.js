@@ -24,7 +24,8 @@ const powerPlants = [
     coordinates: { lat: 38.8, lng: -122.8 },
     description: '全球最大地熱發電複合體，包含22座電廠',
     notes: 'Largest geothermal complex in the world. Dry steam field.',
-    source: 'US EIA, Calpine'
+    source: 'US EIA, Calpine',
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Salton Sea (Imperial Valley)',
@@ -47,7 +48,8 @@ const powerPlants = [
     coordinates: { lat: 33.2, lng: -115.6 },
     description: '高溫鹵水地熱田，富含鋰礦',
     notes: 'High-salinity brine, lithium extraction potential',
-    source: 'US EIA'
+    source: 'US EIA',
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Puna Geothermal Venture',
@@ -70,7 +72,8 @@ const powerPlants = [
     coordinates: { lat: 19.47, lng: -154.89 },
     description: '夏威夷唯一地熱電廠，位於基拉韋厄火山',
     notes: 'Only geothermal plant in Hawaii, affected by 2018 eruption',
-    source: 'Ormat'
+    source: 'Ormat',
+    drilling_contractor: 'Ormat Technologies'
   },
   {
     name: 'Cape Station',
@@ -93,7 +96,8 @@ const powerPlants = [
     coordinates: { lat: 38.5, lng: -113.0 },
     description: '全球最大商業化EGS計畫，供電給Google資料中心',
     notes: 'First large-scale commercial EGS project, Google PPA',
-    source: 'Fervo Energy'
+    source: 'Fervo Energy',
+    drilling_contractor: 'Fervo Energy Drilling'
   },
   {
     name: 'Project Red (Fervo)',
@@ -116,7 +120,8 @@ const powerPlants = [
     coordinates: { lat: 39.5, lng: -118.0 },
     description: '首座成功商轉的水平井EGS電廠',
     notes: 'First successful horizontal well EGS, record drilling speeds',
-    source: 'Fervo Energy, DOE'
+    source: 'Fervo Energy, DOE',
+    drilling_contractor: 'Fervo Energy Drilling'
   },
 
   // === Indonesia ===
@@ -141,7 +146,8 @@ const powerPlants = [
     coordinates: { lat: 2.1, lng: 98.8 },
     description: '全球最大單一合約地熱電廠',
     notes: 'Largest single-contract geothermal plant in the world',
-    source: 'Ormat, Medco'
+    source: 'Ormat, Medco',
+    drilling_contractor: 'Star Energy Drilling'
   },
   {
     name: 'Wayang Windu',
@@ -164,7 +170,8 @@ const powerPlants = [
     coordinates: { lat: -7.2, lng: 107.6 },
     description: '西爪哇主要地熱電廠',
     notes: 'Unit 1: 110MW (2000), Unit 2: 117MW (2009)',
-    source: 'Star Energy'
+    source: 'Star Energy',
+    drilling_contractor: 'Star Energy Drilling'
   },
   {
     name: 'Salak (Awibengkok)',
@@ -187,7 +194,8 @@ const powerPlants = [
     coordinates: { lat: -6.7, lng: 106.7 },
     description: '印尼第二大地熱電廠',
     notes: 'Originally developed by Chevron, now Star Energy',
-    source: 'Star Energy'
+    source: 'Star Energy',
+    drilling_contractor: 'Star Energy Drilling'
   },
   {
     name: 'Darajat',
@@ -210,7 +218,8 @@ const powerPlants = [
     coordinates: { lat: -7.2, lng: 107.7 },
     description: '印尼唯一乾蒸汽地熱田',
     notes: 'Only dry steam field in Indonesia',
-    source: 'Star Energy'
+    source: 'Star Energy',
+    drilling_contractor: 'Star Energy Drilling'
   },
   {
     name: 'Kamojang',
@@ -233,7 +242,8 @@ const powerPlants = [
     coordinates: { lat: -7.1, lng: 107.8 },
     description: '印尼第一座商業地熱電廠',
     notes: 'First commercial geothermal plant in Indonesia',
-    source: 'PGE'
+    source: 'PGE',
+    drilling_contractor: 'Pertamina Drilling Team'
   },
   {
     name: 'Lahendong',
@@ -256,7 +266,8 @@ const powerPlants = [
     coordinates: { lat: 1.3, lng: 124.8 },
     description: '蘇拉威西島主要地熱電廠',
     notes: '4 units, each 20-40MW',
-    source: 'PGE'
+    source: 'PGE',
+    drilling_contractor: 'Pertamina Drilling Team'
   },
 
   // === Philippines ===
@@ -281,7 +292,8 @@ const powerPlants = [
     coordinates: { lat: 14.1, lng: 121.5 },
     description: '菲律賓最大地熱電廠',
     notes: 'Largest geothermal plant in Philippines',
-    source: 'AP Renewables'
+    source: 'AP Renewables',
+    drilling_contractor: 'PNOC-EDC Drilling Team'
   },
   {
     name: 'Tiwi',
@@ -304,7 +316,8 @@ const powerPlants = [
     coordinates: { lat: 13.4, lng: 123.7 },
     description: '呂宋島東南部主要地熱電廠',
     notes: 'One of the oldest geothermal plants in Asia',
-    source: 'AP Renewables'
+    source: 'AP Renewables',
+    drilling_contractor: 'PNOC-EDC Drilling Team'
   },
   {
     name: 'Leyte (Tongonan/Malitbog)',
@@ -327,7 +340,8 @@ const powerPlants = [
     coordinates: { lat: 11.2, lng: 124.7 },
     description: '全球最大濕蒸汽地熱田',
     notes: 'Largest wet steam geothermal field in the world',
-    source: 'EDC'
+    source: 'EDC',
+    drilling_contractor: 'PNOC-EDC Drilling Team'
   },
   {
     name: 'Palinpinon',
@@ -350,7 +364,8 @@ const powerPlants = [
     coordinates: { lat: 9.3, lng: 123.2 },
     description: '米沙鄢群島主要地熱電廠',
     notes: 'Supplies power to Negros and Cebu',
-    source: 'EDC'
+    source: 'EDC',
+    drilling_contractor: 'PNOC-EDC Drilling Team'
   },
 
   // === New Zealand ===
@@ -375,7 +390,8 @@ const powerPlants = [
     coordinates: { lat: -38.6, lng: 176.1 },
     description: '全球第二座商業地熱電廠，持續運轉超過65年',
     notes: 'Second commercial geothermal plant in the world (after Larderello)',
-    source: 'Contact Energy'
+    source: 'Contact Energy',
+    drilling_contractor: 'Contact Energy Drilling Team'
   },
   {
     name: 'Te Mihi',
@@ -398,7 +414,8 @@ const powerPlants = [
     coordinates: { lat: -38.6, lng: 176.1 },
     description: '紐西蘭最新大型地熱電廠',
     notes: 'Modern triple-flash design',
-    source: 'Contact Energy'
+    source: 'Contact Energy',
+    drilling_contractor: 'Contact Energy Drilling Team'
   },
   {
     name: 'Kawerau',
@@ -421,7 +438,8 @@ const powerPlants = [
     coordinates: { lat: -38.1, lng: 176.7 },
     description: '結合工業蒸汽供應的地熱電廠',
     notes: 'Also supplies steam to industrial users (pulp mill)',
-    source: 'Mercury NZ'
+    source: 'Mercury NZ',
+    drilling_contractor: 'Mercury Drilling Team'
   },
   {
     name: 'Nga Awa Purua',
@@ -444,7 +462,8 @@ const powerPlants = [
     coordinates: { lat: -38.5, lng: 176.3 },
     description: '擁有世界最大單一地熱渦輪機',
     notes: 'Single largest geothermal turbine in the world (140MW)',
-    source: 'Mercury NZ'
+    source: 'Mercury NZ',
+    drilling_contractor: 'Mercury Drilling Team'
   },
   {
     name: 'Ngatamariki',
@@ -467,7 +486,8 @@ const powerPlants = [
     coordinates: { lat: -38.5, lng: 176.2 },
     description: '紐西蘭最大二元循環地熱電廠',
     notes: 'Largest binary geothermal plant in NZ, uses Ormat technology',
-    source: 'Mercury NZ'
+    source: 'Mercury NZ',
+    drilling_contractor: 'Mercury Drilling Team'
   },
 
   // === Iceland ===
@@ -493,7 +513,8 @@ const powerPlants = [
     coordinates: { lat: 64.0, lng: -21.4 },
     description: '全球最大地熱熱電共生電廠，配備碳捕捉設備',
     notes: 'Worlds largest geothermal CHP plant. Includes Carbfix CO2 injection project.',
-    source: 'ON Power'
+    source: 'ON Power',
+    drilling_contractor: 'Mannvit Engineering'
   },
   {
     name: 'Nesjavellir',
@@ -517,7 +538,8 @@ const powerPlants = [
     coordinates: { lat: 64.1, lng: -21.3 },
     description: '為雷克雅維克供應熱水的主要電廠',
     notes: 'Supplies hot water to Reykjavik, started as heat-only in 1990',
-    source: 'ON Power'
+    source: 'ON Power',
+    drilling_contractor: 'Mannvit Engineering'
   },
   {
     name: 'Reykjanes',
@@ -540,7 +562,8 @@ const powerPlants = [
     coordinates: { lat: 63.8, lng: -22.7 },
     description: '海水型地熱電廠',
     notes: 'Seawater-dominated geothermal system',
-    source: 'HS Orka'
+    source: 'HS Orka',
+    drilling_contractor: 'Íslensk orka Drilling'
   },
   {
     name: 'Svartsengi',
@@ -564,7 +587,8 @@ const powerPlants = [
     coordinates: { lat: 63.9, lng: -22.4 },
     description: '藍湖溫泉的熱源電廠',
     notes: 'Source of the famous Blue Lagoon spa discharge water',
-    source: 'HS Orka'
+    source: 'HS Orka',
+    drilling_contractor: 'Íslensk orka Drilling'
   },
 
   // === Italy ===
@@ -589,7 +613,8 @@ const powerPlants = [
     coordinates: { lat: 43.2, lng: 10.9 },
     description: '全球第一座地熱發電廠，發電超過110年',
     notes: 'Worlds first geothermal power plant (1904 experimental, 1913 commercial)',
-    source: 'Enel'
+    source: 'Enel',
+    drilling_contractor: 'Enel Drilling Team'
   },
   {
     name: 'Monte Amiata',
@@ -612,7 +637,8 @@ const powerPlants = [
     coordinates: { lat: 42.9, lng: 11.6 },
     description: '義大利第二大地熱區',
     notes: 'Second largest geothermal area in Italy',
-    source: 'Enel'
+    source: 'Enel',
+    drilling_contractor: 'Enel Drilling Team'
   },
 
   // === Kenya ===
@@ -637,7 +663,8 @@ const powerPlants = [
     coordinates: { lat: -0.9, lng: 36.3 },
     description: '非洲最大地熱發電複合體',
     notes: 'Largest geothermal complex in Africa. Multiple plants and expansions.',
-    source: 'KenGen'
+    source: 'KenGen',
+    drilling_contractor: 'KenGen Drilling Team'
   },
   {
     name: 'Menengai',
@@ -660,7 +687,8 @@ const powerPlants = [
     coordinates: { lat: -0.2, lng: 36.1 },
     description: '肯亞最新大型地熱開發計畫',
     notes: 'Steam supplied by GDC to IPPs',
-    source: 'GDC'
+    source: 'GDC',
+    drilling_contractor: 'GDC Drilling Team'
   },
 
   // === Japan ===
@@ -685,7 +713,8 @@ const powerPlants = [
     coordinates: { lat: 33.1, lng: 131.2 },
     description: '日本最大地熱電廠',
     notes: 'Largest geothermal plant in Japan',
-    source: 'Kyushu Electric'
+    source: 'Kyushu Electric',
+    drilling_contractor: 'Japan Drilling Co.'
   },
   {
     name: 'Yanaizu-Nishiyama',
@@ -708,7 +737,8 @@ const powerPlants = [
     coordinates: { lat: 37.5, lng: 139.9 },
     description: '福島縣主要地熱電廠',
     notes: 'Located near Aizu region',
-    source: 'Tohoku Electric'
+    source: 'Tohoku Electric',
+    drilling_contractor: 'Japan Drilling Co.'
   },
   {
     name: 'Wasabizawa',
@@ -731,7 +761,8 @@ const powerPlants = [
     coordinates: { lat: 39.0, lng: 140.7 },
     description: '日本23年來首座新建大型地熱電廠',
     notes: 'First large new geothermal plant in Japan in 23 years',
-    source: 'J-Power'
+    source: 'J-Power',
+    drilling_contractor: 'J-Power Drilling'
   },
 
   // === Mexico ===
@@ -756,7 +787,8 @@ const powerPlants = [
     coordinates: { lat: 32.4, lng: -115.3 },
     description: '全球最大液體主導型地熱田',
     notes: 'Largest liquid-dominated geothermal field in the world',
-    source: 'CFE'
+    source: 'CFE',
+    drilling_contractor: 'CFE Drilling Team'
   },
   {
     name: 'Los Azufres',
@@ -779,7 +811,8 @@ const powerPlants = [
     coordinates: { lat: 19.8, lng: -100.7 },
     description: '墨西哥第二大地熱電廠',
     notes: 'Second largest geothermal plant in Mexico',
-    source: 'CFE'
+    source: 'CFE',
+    drilling_contractor: 'CFE Drilling Team'
   },
 
   // === Turkey ===
@@ -804,7 +837,8 @@ const powerPlants = [
     coordinates: { lat: 37.9, lng: 28.8 },
     description: '土耳其最早的地熱電廠',
     notes: 'First geothermal plant in Turkey, expanded multiple times',
-    source: 'Zorlu Enerji'
+    source: 'Zorlu Enerji',
+    drilling_contractor: 'Turkish Drilling Contractors'
   },
   {
     name: 'Efeler',
@@ -827,7 +861,8 @@ const powerPlants = [
     coordinates: { lat: 37.8, lng: 28.3 },
     description: '土耳其最大單一地熱電廠',
     notes: 'Largest single geothermal plant in Turkey',
-    source: 'Güriş'
+    source: 'Güriş',
+    drilling_contractor: 'Güriş Drilling Team'
   },
 
   // === Germany ===
@@ -853,7 +888,8 @@ const powerPlants = [
     coordinates: { lat: 47.9, lng: 11.5 },
     description: '全球首座商業閉環地熱電廠',
     notes: 'First commercial closed-loop geothermal plant in the world',
-    source: 'Eavor'
+    source: 'Eavor',
+    drilling_contractor: 'Eavor Drilling'
   },
   {
     name: 'Landau',
@@ -878,6 +914,8 @@ const powerPlants = [
     description: '德國首座發電地熱電廠',
     notes: 'First geothermal power plant in Germany',
     source: 'Geo x'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Unterhaching',
@@ -901,7 +939,8 @@ const powerPlants = [
     coordinates: { lat: 48.1, lng: 11.6 },
     description: '全球首座Kalina循環地熱電廠',
     notes: 'First Kalina cycle geothermal plant in the world',
-    source: 'Geothermie Unterhaching'
+    source: 'Geothermie Unterhaching',
+    drilling_contractor: 'Major International Drilling Contractor'
   },
 
   // === El Salvador ===
@@ -926,7 +965,8 @@ const powerPlants = [
     coordinates: { lat: 13.9, lng: -89.8 },
     description: '中美洲第一座地熱電廠',
     notes: 'First geothermal plant in Central America',
-    source: 'LaGeo'
+    source: 'LaGeo',
+    drilling_contractor: 'LaGeo Drilling Team'
   },
   {
     name: 'Berlín',
@@ -949,7 +989,8 @@ const powerPlants = [
     coordinates: { lat: 13.5, lng: -88.5 },
     description: '薩爾瓦多最大地熱電廠',
     notes: 'Largest geothermal plant in El Salvador',
-    source: 'LaGeo'
+    source: 'LaGeo',
+    drilling_contractor: 'LaGeo Drilling Team'
   },
 
   // === Costa Rica ===
@@ -974,7 +1015,8 @@ const powerPlants = [
     coordinates: { lat: 10.7, lng: -85.2 },
     description: '哥斯大黎加最大地熱電廠',
     notes: 'Five units including binary bottoming cycle',
-    source: 'ICE'
+    source: 'ICE',
+    drilling_contractor: 'ICE Drilling Team'
   },
   {
     name: 'Las Pailas',
@@ -997,7 +1039,8 @@ const powerPlants = [
     coordinates: { lat: 10.8, lng: -85.3 },
     description: '林孔德拉別哈火山附近',
     notes: 'Near Rincón de la Vieja Volcano',
-    source: 'ICE'
+    source: 'ICE',
+    drilling_contractor: 'ICE Drilling Team'
   },
 
   // === China ===
@@ -1022,7 +1065,8 @@ const powerPlants = [
     coordinates: { lat: 30.1, lng: 90.5 },
     description: '中國最大運轉中地熱電廠',
     notes: 'Largest operating geothermal plant in China, high altitude (4300m)',
-    source: 'Tibet Electric Power'
+    source: 'Tibet Electric Power',
+    drilling_contractor: 'Chinese Geological Drilling Team'
   },
   {
     name: 'Fengshun (Guangdong)',
@@ -1045,7 +1089,8 @@ const powerPlants = [
     coordinates: { lat: 24.2, lng: 116.2 },
     description: '中國首座中低溫地熱發電站',
     notes: 'First medium-low temperature geothermal power plant in China',
-    source: 'Sinopec'
+    source: 'Sinopec',
+    drilling_contractor: 'Sinopec Drilling Team'
   },
 
   // === Taiwan ===
@@ -1070,7 +1115,8 @@ const powerPlants = [
     coordinates: { lat: 24.6, lng: 121.6 },
     description: '台灣首座商轉地熱電廠',
     notes: 'First commercial geothermal plant in Taiwan',
-    source: '結元能源'
+    source: '結元能源',
+    drilling_contractor: '結元能源 Drilling Team'
   },
   {
     name: '仁澤地熱 (Renze)',
@@ -1093,7 +1139,8 @@ const powerPlants = [
     coordinates: { lat: 24.5, lng: 121.5 },
     description: '台灣第二座商轉地熱電廠',
     notes: 'Second commercial geothermal plant in Taiwan, Baseload Capital investment',
-    source: '倍速羅得'
+    source: '倍速羅得',
+    drilling_contractor: '倍速羅得 Drilling Team'
   },
   {
     name: '金崙地熱 (Jinlun)',
@@ -1116,7 +1163,8 @@ const powerPlants = [
     coordinates: { lat: 22.5, lng: 120.9 },
     description: '台電自建地熱示範電廠',
     notes: 'Taipower-built demonstration plant',
-    source: '台電'
+    source: '台電',
+    drilling_contractor: '台電 Drilling Team'
   },
   {
     name: '大屯地熱 (Datun)',
@@ -1140,6 +1188,8 @@ const powerPlants = [
     description: '台灣最具潛力的火山型地熱區',
     notes: 'Most promising volcanic geothermal area in Taiwan, estimated 500MW potential',
     source: 'ITRI'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Ethiopia ===
@@ -1164,7 +1214,8 @@ const powerPlants = [
     coordinates: { lat: 7.8, lng: 38.8 },
     description: '東非首座地熱電廠',
     notes: 'First geothermal plant in East Africa, expansion planned',
-    source: 'EEP'
+    source: 'EEP',
+    drilling_contractor: 'Ethiopian Drilling Team'
   },
 
   // === Nicaragua ===
@@ -1189,7 +1240,8 @@ const powerPlants = [
     coordinates: { lat: 12.5, lng: -86.8 },
     description: '尼加拉瓜最大地熱電廠',
     notes: 'Largest geothermal plant in Nicaragua',
-    source: 'Polaris'
+    source: 'Polaris',
+    drilling_contractor: 'Polaris Drilling'
   },
 
   // === Russia ===
@@ -1214,7 +1266,8 @@ const powerPlants = [
     coordinates: { lat: 52.5, lng: 158.2 },
     description: '俄羅斯最大地熱電廠',
     notes: 'Largest geothermal plant in Russia, supplies 30% of Kamchatka power',
-    source: 'RusHydro'
+    source: 'RusHydro',
+    drilling_contractor: 'RusHydro Drilling'
   },
 
   // === Additional Plants from ThinkGeoEnergy 2025 Update ===
@@ -1241,7 +1294,8 @@ const powerPlants = [
     coordinates: { lat: -8.1, lng: 114.2 },
     description: '2025年印尼新增地熱電廠',
     notes: 'Part of Indonesia 2025 capacity additions',
-    source: 'ThinkGeoEnergy'
+    source: 'ThinkGeoEnergy',
+    drilling_contractor: 'Major International Drilling Contractor'
   },
   {
     name: 'Lumut Balai Unit 2',
@@ -1264,7 +1318,8 @@ const powerPlants = [
     coordinates: { lat: -4.2, lng: 103.7 },
     description: '南蘇門答臘新建電廠',
     notes: '2025 Indonesia addition',
-    source: 'ThinkGeoEnergy'
+    source: 'ThinkGeoEnergy',
+    drilling_contractor: 'Major International Drilling Contractor'
   },
   {
     name: 'Salak Binary Unit',
@@ -1287,7 +1342,8 @@ const powerPlants = [
     coordinates: { lat: -6.7, lng: 106.7 },
     description: 'Salak 地熱田二元循環擴建',
     notes: 'Binary bottoming unit at Salak field',
-    source: 'ThinkGeoEnergy'
+    source: 'ThinkGeoEnergy',
+    drilling_contractor: 'Major International Drilling Contractor'
   },
 
   // Philippines - 2025
@@ -1312,7 +1368,8 @@ const powerPlants = [
     coordinates: { lat: 13.2, lng: 123.8 },
     description: 'BacMan II 地熱田二元循環擴建',
     notes: 'Binary addition at BacMan II complex',
-    source: 'ThinkGeoEnergy'
+    source: 'ThinkGeoEnergy',
+    drilling_contractor: 'Major International Drilling Contractor'
   },
 
   // Turkey - 2025
@@ -1337,7 +1394,8 @@ const powerPlants = [
     coordinates: { lat: 37.8, lng: 28.5 },
     description: '土耳其2025年新建電廠',
     notes: 'Turkey 2025 addition',
-    source: 'ThinkGeoEnergy'
+    source: 'ThinkGeoEnergy',
+    drilling_contractor: 'Major International Drilling Contractor'
   },
   {
     name: 'Hez Morali',
@@ -1360,7 +1418,8 @@ const powerPlants = [
     coordinates: { lat: 37.9, lng: 28.7 },
     description: '土耳其2025年新建電廠',
     notes: 'Turkey 2025 addition',
-    source: 'ThinkGeoEnergy'
+    source: 'ThinkGeoEnergy',
+    drilling_contractor: 'Major International Drilling Contractor'
   },
   {
     name: 'Nezihe Beren Unit 2',
@@ -1383,7 +1442,8 @@ const powerPlants = [
     coordinates: { lat: 37.7, lng: 28.4 },
     description: '土耳其2025年新建電廠',
     notes: 'Turkey 2025 addition',
-    source: 'ThinkGeoEnergy'
+    source: 'ThinkGeoEnergy',
+    drilling_contractor: 'Major International Drilling Contractor'
   },
 
   // New Zealand - 2024/2025
@@ -1408,7 +1468,8 @@ const powerPlants = [
     coordinates: { lat: -38.6, lng: 176.2 },
     description: 'Te Huka 地熱田第三機組',
     notes: 'Commissioned end of 2024',
-    source: 'ThinkGeoEnergy'
+    source: 'ThinkGeoEnergy',
+    drilling_contractor: 'Major International Drilling Contractor'
   },
   {
     name: 'TOPP 2',
@@ -1431,7 +1492,8 @@ const powerPlants = [
     coordinates: { lat: -38.5, lng: 176.3 },
     description: 'TOPP 2 地熱電廠',
     notes: 'Test operations began 2025, grid connection expected 2026',
-    source: 'ThinkGeoEnergy'
+    source: 'ThinkGeoEnergy',
+    drilling_contractor: 'Major International Drilling Contractor'
   },
 
   // Iceland - 2025
@@ -1456,7 +1518,8 @@ const powerPlants = [
     coordinates: { lat: 63.9, lng: -22.4 },
     description: 'Svartsengi 電廠擴建',
     notes: '2025 expansion at existing Svartsengi plant',
-    source: 'ThinkGeoEnergy'
+    source: 'ThinkGeoEnergy',
+    drilling_contractor: 'Major International Drilling Contractor'
   },
 
   // El Salvador - 2025
@@ -1481,7 +1544,8 @@ const powerPlants = [
     coordinates: { lat: 13.5, lng: -88.5 },
     description: 'Berlín 地熱田二元循環擴建',
     notes: 'Long-awaited binary addition at Berlin field',
-    source: 'ThinkGeoEnergy'
+    source: 'ThinkGeoEnergy',
+    drilling_contractor: 'Major International Drilling Contractor'
   },
 
   // Dominica - Upcoming
@@ -1506,7 +1570,8 @@ const powerPlants = [
     coordinates: { lat: 15.3, lng: -61.4 },
     description: '加勒比海地區首座地熱電廠',
     notes: 'First geothermal plant in the Caribbean, targeted March 2026 start',
-    source: 'ThinkGeoEnergy'
+    source: 'ThinkGeoEnergy',
+    drilling_contractor: 'Major International Drilling Contractor'
   },
 
   // Additional USA plants
@@ -1532,6 +1597,8 @@ const powerPlants = [
     description: '內華達州主要地熱電廠',
     notes: 'Multiple units, operated by Ormat',
     source: 'Ormat, US EIA'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Coso Geothermal Complex',
@@ -1555,6 +1622,8 @@ const powerPlants = [
     description: '加州Coso地熱田',
     notes: 'Located on China Lake Naval Weapons Center',
     source: 'Terra-Gen, US EIA'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'East Mesa',
@@ -1578,6 +1647,8 @@ const powerPlants = [
     description: '帝國谷East Mesa地熱田',
     notes: 'Binary plant in Imperial Valley',
     source: 'Ormat, US EIA'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'McGinness Hills',
@@ -1600,7 +1671,8 @@ const powerPlants = [
     coordinates: { lat: 39.7, lng: -117.1 },
     description: '內華達州最大單一地熱電廠',
     notes: 'Three phases, one of the newest large binary plants in US',
-    source: 'Ormat'
+    source: 'Ormat',
+    drilling_contractor: 'Ormat Technologies'
   },
   {
     name: 'Dixie Valley',
@@ -1623,7 +1695,8 @@ const powerPlants = [
     coordinates: { lat: 39.9, lng: -117.9 },
     description: '內華達州Dixie Valley地熱田',
     notes: 'Flash steam plant in central Nevada',
-    source: 'Terra-Gen'
+    source: 'Terra-Gen',
+    drilling_contractor: 'Caithness Drilling'
   },
 
   // === Additional USA Plants from GEM Wiki ===
@@ -1648,7 +1721,8 @@ const powerPlants = [
     coordinates: { lat: 40.0, lng: -118.4 },
     description: '內華達州Brady地熱田',
     notes: 'Early Ormat binary plant',
-    source: 'GEM Wiki, Ormat'
+    source: 'GEM Wiki, Ormat',
+    drilling_contractor: 'Ormat Technologies'
   },
   {
     name: 'Wister',
@@ -1671,7 +1745,8 @@ const powerPlants = [
     coordinates: { lat: 33.3, lng: -115.5 },
     description: '帝國谷Wister地熱田',
     notes: 'Binary complex in Imperial Valley',
-    source: 'GEM Wiki, Ormat'
+    source: 'GEM Wiki, Ormat',
+    drilling_contractor: 'Ormat Technologies'
   },
   {
     name: 'San Emidio',
@@ -1694,7 +1769,8 @@ const powerPlants = [
     coordinates: { lat: 40.4, lng: -119.4 },
     description: '內華達州San Emidio地熱田',
     notes: 'Binary plant in Washoe County',
-    source: 'GEM Wiki, Ormat'
+    source: 'GEM Wiki, Ormat',
+    drilling_contractor: 'Ormat Technologies'
   },
   {
     name: 'Garnet',
@@ -1717,7 +1793,8 @@ const powerPlants = [
     coordinates: { lat: 39.6, lng: -119.2 },
     description: '內華達州Garnet地熱田',
     notes: 'Modern binary plant',
-    source: 'GEM Wiki, Ormat'
+    source: 'GEM Wiki, Ormat',
+    drilling_contractor: 'Ormat Technologies'
   },
   {
     name: 'Soda Lake',
@@ -1740,7 +1817,8 @@ const powerPlants = [
     coordinates: { lat: 39.5, lng: -118.8 },
     description: '內華達州Soda Lake地熱田',
     notes: 'Binary plant near Fallon',
-    source: 'GEM Wiki, Ormat'
+    source: 'GEM Wiki, Ormat',
+    drilling_contractor: 'Ormat Technologies'
   },
   {
     name: 'Fish Lake',
@@ -1763,7 +1841,8 @@ const powerPlants = [
     coordinates: { lat: 38.9, lng: -115.2 },
     description: '內華達州Fish Lake地熱田',
     notes: 'Binary plant in central Nevada',
-    source: 'GEM Wiki, Ormat'
+    source: 'GEM Wiki, Ormat',
+    drilling_contractor: 'Ormat Technologies'
   },
   {
     name: 'Galena',
@@ -1786,7 +1865,8 @@ const powerPlants = [
     coordinates: { lat: 39.3, lng: -119.6 },
     description: '內華達州Galena地熱田',
     notes: 'Binary plant near Reno',
-    source: 'GEM Wiki, Ormat'
+    source: 'GEM Wiki, Ormat',
+    drilling_contractor: 'Ormat Technologies'
   },
   {
     name: 'Mammoth',
@@ -1809,7 +1889,8 @@ const powerPlants = [
     coordinates: { lat: 37.6, lng: -118.9 },
     description: '加州Mammoth地熱田',
     notes: 'Flash plant in Long Valley caldera',
-    source: 'GEM Wiki, Magma Energy'
+    source: 'GEM Wiki, Magma Energy',
+    drilling_contractor: 'Magma Drilling'
   },
   {
     name: 'Casa Diablo',
@@ -1832,7 +1913,8 @@ const powerPlants = [
     coordinates: { lat: 37.6, lng: -118.9 },
     description: '加州Casa Diablo地熱田',
     notes: 'Long Valley binary complex',
-    source: 'GEM Wiki, Ormat'
+    source: 'GEM Wiki, Ormat',
+    drilling_contractor: 'Ormat Technologies'
   },
 
   // === Additional Philippines Plants ===
@@ -1858,6 +1940,8 @@ const powerPlants = [
     description: '呂宋島東南部地熱電廠',
     notes: 'Part of Bicol geothermal complex',
     source: 'GEM Wiki, EDC'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'BacMan (Tongonan South)',
@@ -1881,6 +1965,8 @@ const powerPlants = [
     description: '呂宋島東南部地熱電廠',
     notes: 'Part of BacMan complex',
     source: 'GEM Wiki, EDC'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Maui',
@@ -1904,6 +1990,8 @@ const powerPlants = [
     description: '萊特島地熱電廠',
     notes: 'Part of Leyte geothermal complex',
     source: 'GEM Wiki, EDC'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Nasuji',
@@ -1927,6 +2015,8 @@ const powerPlants = [
     description: '內格羅斯島地熱電廠',
     notes: 'Part of Palinpinon complex',
     source: 'GEM Wiki, EDC'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional New Zealand Plants ===
@@ -1952,6 +2042,8 @@ const powerPlants = [
     description: '陶波地區地熱電廠',
     notes: 'Combined flash and binary plant',
     source: 'GEM Wiki, Mercury NZ'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Poihipi',
@@ -1975,6 +2067,8 @@ const powerPlants = [
     description: '陶波地區地熱電廠',
     notes: 'Flash steam plant near Wairakei',
     source: 'GEM Wiki, Contact Energy'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Mokai',
@@ -1998,6 +2092,8 @@ const powerPlants = [
     description: '陶波地區地熱電廠',
     notes: 'Mokai geothermal field',
     source: 'GEM Wiki, Mokai Power'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Te Huka',
@@ -2021,6 +2117,8 @@ const powerPlants = [
     description: 'Te Huka地熱電廠',
     notes: 'Binary plant at Rotokawa field',
     source: 'GEM Wiki, Contact Energy'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Italy Plants ===
@@ -2046,6 +2144,8 @@ const powerPlants = [
     description: '托斯卡納地區地熱電廠',
     notes: 'Part of Larderello complex',
     source: 'GEM Wiki, Enel'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Bagnore',
@@ -2069,6 +2169,8 @@ const powerPlants = [
     description: '托斯卡納地區地熱電廠',
     notes: 'Monte Amiata area',
     source: 'GEM Wiki, Enel'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Kenya Plants ===
@@ -2094,6 +2196,8 @@ const powerPlants = [
     description: '肯亞Eburru地熱電廠',
     notes: 'Binary plant near Olkaria',
     source: 'GEM Wiki, KenGen'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Bogoria',
@@ -2117,6 +2221,8 @@ const powerPlants = [
     description: '肯亞Bogoria地熱電廠',
     notes: 'Lake Bogoria area',
     source: 'GEM Wiki, KenGen'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Suswa',
@@ -2140,6 +2246,8 @@ const powerPlants = [
     description: '肯亞Suswa地熱電廠',
     notes: 'New geothermal development',
     source: 'GEM Wiki, KenGen'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Japan Plants ===
@@ -2165,6 +2273,8 @@ const powerPlants = [
     description: '長野縣地熱電廠',
     notes: 'Central Japan geothermal',
     source: 'GEM Wiki, J-Power'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Kakkonda',
@@ -2188,6 +2298,8 @@ const powerPlants = [
     description: '秋田縣地熱電廠',
     notes: 'Large geothermal plant in northern Honshu',
     source: 'GEM Wiki, Tohoku Electric'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Uenotai',
@@ -2211,6 +2323,8 @@ const powerPlants = [
     description: '秋田縣地熱電廠',
     notes: 'Near Kakkonda field',
     source: 'GEM Wiki, Tohoku Electric'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Onikobe',
@@ -2234,6 +2348,8 @@ const powerPlants = [
     description: '宮城縣地熱電廠',
     notes: 'Tohoku region geothermal',
     source: 'GEM Wiki, Tohoku Electric'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Turkey Plants ===
@@ -2259,6 +2375,8 @@ const powerPlants = [
     description: '艾登省地熱電廠',
     notes: 'Part of Efeler complex',
     source: 'GEM Wiki, Güriş'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Alasehir',
@@ -2282,6 +2400,8 @@ const powerPlants = [
     description: '馬尼薩省地熱電廠',
     notes: 'Binary plant in western Turkey',
     source: 'GEM Wiki, Zorlu'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Kuyucak',
@@ -2305,6 +2425,8 @@ const powerPlants = [
     description: '艾登省地熱電廠',
     notes: 'Binary geothermal plant',
     source: 'GEM Wiki, AKSA'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Pamukkale',
@@ -2328,6 +2450,8 @@ const powerPlants = [
     description: '代尼茲利省地熱電廠',
     notes: 'Near famous travertines',
     source: 'GEM Wiki, Zorlu'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Mexico Plants ===
@@ -2353,6 +2477,8 @@ const powerPlants = [
     description: '哈利斯科州地熱電廠',
     notes: 'Binary plant in western Mexico',
     source: 'GEM Wiki, CFE'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Tres Virgenes',
@@ -2376,6 +2502,8 @@ const powerPlants = [
     description: '南下加利福尼亞州地熱電廠',
     notes: 'Baja California Sur geothermal',
     source: 'GEM Wiki, CFE'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Indonesia Plants ===
@@ -2401,6 +2529,8 @@ const powerPlants = [
     description: '西爪哇地熱電廠',
     notes: 'Near Bandung',
     source: 'GEM Wiki, Star Energy'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Rangga Datu',
@@ -2424,6 +2554,8 @@ const powerPlants = [
     description: '南蘇拉威西省地熱電廠',
     notes: 'Sulawesi geothermal development',
     source: 'GEM Wiki, PGE'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Ulubelu',
@@ -2447,6 +2579,8 @@ const powerPlants = [
     description: '蘭邦省地熱電廠',
     notes: 'Sumatra geothermal',
     source: 'GEM Wiki, PGE'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Sibayak',
@@ -2470,6 +2604,8 @@ const powerPlants = [
     description: '北蘇門答臘地熱電廠',
     notes: 'Near Lake Toba',
     source: 'GEM Wiki, Medco'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Drajat',
@@ -2493,6 +2629,8 @@ const powerPlants = [
     description: '西爪哇地熱電廠',
     notes: 'Binary unit at Darajat field',
     source: 'GEM Wiki, Star Energy'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Iceland Plants ===
@@ -2519,6 +2657,8 @@ const powerPlants = [
     description: 'Hellisheiði電廠擴建',
     notes: 'Second phase of Hellisheiði',
     source: 'GEM Wiki, ON Power'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Bjarnarflag',
@@ -2542,6 +2682,8 @@ const powerPlants = [
     description: '米湖地區地熱電廠',
     notes: 'Mývatn geothermal area',
     source: 'GEM Wiki, Landsvirkjun'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Krafla',
@@ -2565,6 +2707,8 @@ const powerPlants = [
     description: '克拉夫拉地熱電廠',
     notes: 'Northern Iceland geothermal plant, part of Krafla Power Station',
     source: 'GEM Wiki, Landsvirkjun'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Hellisheiði Carbfix',
@@ -2588,6 +2732,8 @@ const powerPlants = [
     description: 'Hellisheiði碳捕捉電廠',
     notes: 'Carbfix CO2 injection project, carbon neutral geothermal',
     source: 'GEM Wiki, ON Power'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Costa Rica Plants ===
@@ -2613,6 +2759,8 @@ const powerPlants = [
     description: '阿雷納爾地區地熱電廠',
     notes: 'Near Arenal Volcano',
     source: 'GEM Wiki, ICE'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Zapotal',
@@ -2636,6 +2784,8 @@ const powerPlants = [
     description: '扎波塔爾地熱電廠',
     notes: 'Binary plant in Guanacaste',
     source: 'GEM Wiki, ICE'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional El Salvador Plants ===
@@ -2661,6 +2811,8 @@ const powerPlants = [
     description: '奇皮卡帕地熱電廠',
     notes: 'Part of Ahuachapán geothermal complex',
     source: 'GEM Wiki, LaGeo'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'San Vicente',
@@ -2684,6 +2836,8 @@ const powerPlants = [
     description: '聖維森特地熱電廠',
     notes: 'New geothermal development in El Salvador',
     source: 'GEM Wiki, LaGeo'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional China Plants ===
@@ -2709,6 +2863,8 @@ const powerPlants = [
     description: '塘山大旺地熱電廠',
     notes: 'Low-temperature geothermal in Guangdong',
     source: 'GEM Wiki, China Geothermal'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Wudongde',
@@ -2732,6 +2888,8 @@ const powerPlants = [
     description: '武定縣地熱電廠',
     notes: 'Medium-temperature geothermal in Yunnan',
     source: 'GEM Wiki, Yunnan Geothermal'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Germany Plants ===
@@ -2757,6 +2915,8 @@ const powerPlants = [
     description: '烏特恩多夫地熱電廠',
     notes: 'Bavarian geothermal plant',
     source: 'GEM Wiki, Geothermie Uttendorf'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Sinsheim',
@@ -2780,6 +2940,8 @@ const powerPlants = [
     description: '辛斯海姆地熱電廠',
     notes: 'EnBW geothermal project',
     source: 'GEM Wiki, EnBW'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Pforzheim',
@@ -2803,6 +2965,8 @@ const powerPlants = [
     description: '普福爾茨海姆地熱電廠',
     notes: 'Deep geothermal in Baden-Württemberg',
     source: 'GEM Wiki, Stadtwerke Pforzheim'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Taufkirchen',
@@ -2826,6 +2990,8 @@ const powerPlants = [
     description: '陶夫基爾興地熱電廠',
     notes: 'Munich area geothermal',
     source: 'GEM Wiki, Geoenergie Bayern'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Bruchsal',
@@ -2849,6 +3015,8 @@ const powerPlants = [
     description: '布魯赫薩爾地熱電廠',
     notes: 'Upper Rhine Graben geothermal',
     source: 'GEM Wiki, EVN'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Neustadt-Glewe',
@@ -2872,6 +3040,8 @@ const powerPlants = [
     description: '新施塔特-格萊韋地熱電廠',
     notes: 'Low-temperature geothermal in northern Germany',
     source: 'GEM Wiki, Daldrup & Söhne'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Nicaragua Plants ===
@@ -2897,6 +3067,8 @@ const powerPlants = [
     description: '莫莫通博地熱電廠',
     notes: 'Near Momotombo Volcano',
     source: 'GEM Wiki, Polaris'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Russia Plants ===
@@ -2922,6 +3094,8 @@ const powerPlants = [
     description: '上穆特諾夫斯基地熱電廠',
     notes: 'Upper Mutnovskaya field',
     source: 'GEM Wiki, RusHydro'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Pauzhetsky',
@@ -2945,6 +3119,8 @@ const powerPlants = [
     description: '保熱茨基地熱電廠',
     notes: 'Oldest geothermal plant in Kamchatka',
     source: 'GEM Wiki, RusHydro'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Ethiopia Plants ===
@@ -2970,6 +3146,8 @@ const powerPlants = [
     description: '圖盧莫耶地熱電廠',
     notes: 'New geothermal development in Ethiopia',
     source: 'GEM Wiki, TMG'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Papua New Guinea ===
@@ -2995,6 +3173,8 @@ const powerPlants = [
     description: '拉杜地熱電廠',
     notes: 'First geothermal plant in PNG',
     source: 'GEM Wiki, Kroongo Power'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Honduras ===
@@ -3020,6 +3200,8 @@ const powerPlants = [
     description: '普拉塔納雷斯地熱電廠',
     notes: 'First geothermal plant in Honduras',
     source: 'GEM Wiki, EPM'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Guadeloupe (France) ===
@@ -3045,6 +3227,8 @@ const powerPlants = [
     description: '布伊揚特地熱電廠',
     notes: 'French Caribbean geothermal plant',
     source: 'GEM Wiki, CFG'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional USA Plants (EGS & New) ===
@@ -3070,6 +3254,8 @@ const powerPlants = [
     description: 'DOE增強型地熱系統前沿觀測站',
     notes: 'Frontier Observatory for Research in Geothermal Energy',
     source: 'DOE, University of Utah'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Newberry EGS',
@@ -3093,6 +3279,8 @@ const powerPlants = [
     description: '奧勒岡州新伯里奇EGS先導計畫',
     notes: 'Demonstration EGS project, high temperature resource',
     source: 'AltaRock Energy'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Raft River EGS',
@@ -3116,6 +3304,8 @@ const powerPlants = [
     description: '愛達荷州Raft River地熱電廠',
     notes: 'EGS demonstration site with enhanced reservoir',
     source: 'Ormat, DOE'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Hydrodynamics by Fervo',
@@ -3138,7 +3328,8 @@ const powerPlants = [
     coordinates: { lat: 39.5, lng: -118.0 },
     description: 'Fervo Energy水平井EGS電廠',
     notes: 'First successful horizontal well EGS commercial project',
-    source: 'Fervo Energy, DOE'
+    source: 'Fervo Energy, DOE',
+    drilling_contractor: 'Fervo Energy Drilling'
   },
   {
     name: 'Blue Mountain',
@@ -3162,6 +3353,8 @@ const powerPlants = [
     description: '內華達州藍山二元循環電廠',
     notes: 'Early large-scale binary plant',
     source: 'Ormat, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Stillwater',
@@ -3185,6 +3378,8 @@ const powerPlants = [
     description: '內華達州史蒂爾沃特二元循環電廠',
     notes: 'Binary plant near Fallon',
     source: 'Ormat, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Salt Wells',
@@ -3208,6 +3403,8 @@ const powerPlants = [
     description: '內華達州鹽井二元循環電廠',
     notes: 'Binary plant in Churchill County',
     source: 'Ormat, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Del Ranch',
@@ -3231,6 +3428,8 @@ const powerPlants = [
     description: '帝國谷Del Ranch二元循環電廠',
     notes: 'Part of Imperial Valley complex',
     source: 'Ormat, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Highland',
@@ -3254,6 +3453,8 @@ const powerPlants = [
     description: '帝國谷Highland二元循環電廠',
     notes: 'Part of Imperial Valley complex',
     source: 'Ormat, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Joseph City',
@@ -3277,6 +3478,8 @@ const powerPlants = [
     description: '亞利桑那州約瑟夫城二元循環電廠',
     notes: 'New binary plant in Arizona',
     source: 'EPCOR, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Indonesia Plants ===
@@ -3302,6 +3505,8 @@ const powerPlants = [
     description: 'Darajat地熱田擴建',
     notes: 'Latest expansion at Darajat',
     source: 'Star Energy, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Patuha Unit 3',
@@ -3324,7 +3529,8 @@ const powerPlants = [
     coordinates: { lat: -7.1, lng: 107.4 },
     description: 'Patuha地熱田第三機組',
     notes: 'Third unit at Patuha field',
-    source: 'PGE'
+    source: 'PGE',
+    drilling_contractor: 'Pertamina Drilling Team'
   },
   {
     name: "Hu'u Daha",
@@ -3348,6 +3554,8 @@ const powerPlants = [
     description: '西努沙登加拉省地熱電廠',
     notes: 'New development in Nusa Tenggara',
     source: 'Medco Power, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Sungai Penuh Extension',
@@ -3371,6 +3579,8 @@ const powerPlants = [
     description: 'Sungai Penuh地熱田擴建',
     notes: 'Expansion at Jambi field',
     source: 'Supreme Energy'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Banda Arc Geothermal',
@@ -3393,7 +3603,8 @@ const powerPlants = [
     coordinates: { lat: -4.5, lng: 129.5 },
     description: '摩鹿加群島地熱區',
     notes: 'Banda Arc exploration, potential 100MW+',
-    source: 'PGE'
+    source: 'PGE',
+    drilling_contractor: 'Pertamina Drilling Team'
   },
   {
     name: 'Leuwijanjang',
@@ -3417,6 +3628,8 @@ const powerPlants = [
     description: '西爪哇Leuwijanjang地熱田',
     notes: 'New development in West Java',
     source: 'Star Energy, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Philippines Plants ===
@@ -3442,6 +3655,8 @@ const powerPlants = [
     description: '北萊特地熱電廠',
     notes: 'New development in Northern Leyte',
     source: 'EDC, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Bato Unit 2',
@@ -3464,7 +3679,8 @@ const powerPlants = [
     coordinates: { lat: 11.1, lng: 124.6 },
     description: 'Bato地熱田第二機組',
     notes: 'Second unit at Bato field',
-    source: 'EDC'
+    source: 'EDC',
+    drilling_contractor: 'PNOC-EDC Drilling Team'
   },
   {
     name: 'MabinAY',
@@ -3488,6 +3704,8 @@ const powerPlants = [
     description: '馬比奈二元循環電廠',
     notes: 'Binary unit for moderate resources',
     source: 'EDC, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Tongonan Unit 4',
@@ -3510,7 +3728,8 @@ const powerPlants = [
     coordinates: { lat: 11.2, lng: 124.7 },
     description: 'Tongonan地熱田第四機組',
     notes: 'Expansion at Tongonan complex',
-    source: 'EDC'
+    source: 'EDC',
+    drilling_contractor: 'PNOC-EDC Drilling Team'
   },
 
   // === Additional Kenya Plants ===
@@ -3535,7 +3754,8 @@ const powerPlants = [
     coordinates: { lat: -0.9, lng: 36.3 },
     description: 'Olkaria第七電廠',
     notes: 'Latest Olkaria expansion, largest single unit',
-    source: 'KenGen'
+    source: 'KenGen',
+    drilling_contractor: 'KenGen Drilling Team'
   },
   {
     name: 'Olkaria VIII',
@@ -3558,7 +3778,8 @@ const powerPlants = [
     coordinates: { lat: -0.9, lng: 36.3 },
     description: 'Olkaria第八電廠',
     notes: 'Under construction expansion',
-    source: 'KenGen'
+    source: 'KenGen',
+    drilling_contractor: 'KenGen Drilling Team'
   },
   {
     name: 'Namachanja',
@@ -3581,7 +3802,8 @@ const powerPlants = [
     coordinates: { lat: -0.3, lng: 36.0 },
     description: '納馬昌賈地熱區',
     notes: 'GDC new exploration area near Menengai',
-    source: 'GDC'
+    source: 'GDC',
+    drilling_contractor: 'GDC Drilling Team'
   },
   {
     name: 'Korosi',
@@ -3605,6 +3827,8 @@ const powerPlants = [
     description: '肯亞Korosi地熱電廠',
     notes: 'New development near Menengai',
     source: 'KenGen, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'South Island Lake Bogoria',
@@ -3628,6 +3852,8 @@ const powerPlants = [
     description: '博戈里亞湖南島地熱電廠',
     notes: 'Binary plant at Lake Bogoria',
     source: 'GDC, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Japan Plants ===
@@ -3653,6 +3879,8 @@ const powerPlants = [
     description: '福島縣大盂泉地熱電廠',
     notes: 'New development in Fukushima',
     source: 'Japan Renewable Energy, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Kizugawa',
@@ -3676,6 +3904,8 @@ const powerPlants = [
     description: '京都府木津川地熱電廠',
     notes: 'Small binary plant in Kansai',
     source: 'KEPCO, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Minami-Aso',
@@ -3699,6 +3929,8 @@ const powerPlants = [
     description: '熊本縣南阿蘇地熱電廠',
     notes: 'Binary plant near Aso Volcano',
     source: 'Kyushu Electric, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Yahaba',
@@ -3722,6 +3954,8 @@ const powerPlants = [
     description: '岩手縣矢幅地熱電廠',
     notes: 'Binary plant in Iwate',
     source: 'Tohoku Electric, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Nasu',
@@ -3745,6 +3979,8 @@ const powerPlants = [
     description: '栃木縣那須地熱電廠',
     notes: 'Binary plant in Nasu area',
     source: 'TEPCO, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Kurokawa',
@@ -3768,6 +4004,8 @@ const powerPlants = [
     description: '熊本縣黑川地熱電廠',
     notes: 'Small binary plant in Kumamoto',
     source: 'Kumamoto Electric, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Turkey Plants ===
@@ -3793,6 +4031,8 @@ const powerPlants = [
     description: '艾登省特克地熱電廠',
     notes: 'New flash plant in Aydın',
     source: 'Zorlu Enerji, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Yumurtalık',
@@ -3816,6 +4056,8 @@ const powerPlants = [
     description: '阿達納省尤穆爾塔勒克地熱電廠',
     notes: 'New binary plant in Adana',
     source: 'Kalyon Enerji, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Başmakcı',
@@ -3839,6 +4081,8 @@ const powerPlants = [
     description: '阿菲永卡拉希薩爾省巴什馬克奇地熱電廠',
     notes: 'Binary plant in Afyon',
     source: 'AKSA Energy, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Kırka',
@@ -3862,6 +4106,8 @@ const powerPlants = [
     description: '埃斯基謝希爾省科爾卡地熱電廠',
     notes: 'Binary plant with boron production',
     source: 'Eti Maden, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Sarikaya',
@@ -3885,6 +4131,8 @@ const powerPlants = [
     description: '約茲加特省薩里卡亞地熱電廠',
     notes: 'New binary plant in Central Anatolia',
     source: 'Güriş Holding, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional Italy Plants ===
@@ -3910,6 +4158,8 @@ const powerPlants = [
     description: '拉德雷洛電廠擴建',
     notes: 'Modernization and expansion at Larderello',
     source: 'Enel Green Power'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Bagnoregio',
@@ -3933,6 +4183,8 @@ const powerPlants = [
     description: '拉齊奧區巴尼奥雷焦地熱電廠',
     notes: 'Binary plant in Lazio region',
     source: 'Enel Green Power, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
   {
     name: 'Campiglia',
@@ -3956,6 +4208,8 @@ const powerPlants = [
     description: '托斯卡納區坎皮iglia地熱電廠',
     notes: 'Binary plant near Larderello',
     source: 'Enel Green Power, GEM Wiki'
+,
+    drilling_contractor: 'Various Contractors'
   },
 
   // === Additional New Zealand Plants ===
@@ -3980,7 +4234,8 @@ const powerPlants = [
     coordinates: { lat: -38.6, lng: 176.1 },
     description: '陶波區Tauhara地熱電廠',
     notes: 'New 168MW plant, largest in NZ',
-    source: 'Contact Energy'
+    source: 'Contact Energy',
+    drilling_contractor: 'Contact Energy Drilling Team'
   },
   {
     name: 'Wairakei Binary',
@@ -4003,7 +4258,8 @@ const powerPlants = [
     coordinates: { lat: -38.6, lng: 176.1 },
     description: '懷拉基二元循環電廠',
     notes: 'Binary addition at Wairakei field',
-    source: 'Contact Energy'
+    source: 'Contact Energy',
+    drilling_contractor: 'Contact Energy Drilling Team'
   },
 ];
 
