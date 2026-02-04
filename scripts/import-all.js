@@ -2,9 +2,9 @@ const initSqlJs = require('sql.js');
 const fs = require('fs');
 const path = require('path');
 
-// Import from both source databases
-const seedData = require(path.join(__dirname, '../../geothermal-exhibitors/data/seed-data.js'));
-const powerPlants = require(path.join(__dirname, '../../geothermal-exhibitors/data/power-plants.js'));
+// Import from local data files
+const seedData = require(path.join(__dirname, '../data/seed-data.js'));
+const powerPlants = require(path.join(__dirname, '../data/power-plants.js'));
 
 const dbPath = path.join(__dirname, '../data/geothermal.db');
 
