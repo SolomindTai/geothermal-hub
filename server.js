@@ -15,6 +15,16 @@ app.use(express.json());
 // Health check
 app.get('/health', (req, res) => res.status(200).send('OK'));
 
+// Debug endpoint
+app.get('/debug', (req, res) => {
+  res.json({
+    version: '2.0.0',
+    dbPath: dbPath,
+    dbExists: fs.existsSync(dbPath),
+    fieldsCount: db ? Object.keys(db.exec('SELECT * FROM power_plants LIMIT 1')[0]?.columns || {}).length : 0
+  });
+});
+
 // Stats
 app.get('/api/stats', async (req, res) => {
   if (!db) return res.status(500).json({ error: 'Database initializing...' });
@@ -245,19 +255,20 @@ app.post('/api/podcasts', express.json(), (req, res) => {
 async function rebuildDatabase() {
   const SQL = await initSqlJs();
   
-  // Always delete old database to force rebuild
+  console.log('🔄 Starting database rebuild...');
+  
+  // Delete old database
   if (fs.existsSync(dbPath)) {
     fs.unlinkSync(dbPath);
     console.log('🗑️ Old database deleted');
   }
   
   const db = new SQL.Database();
+  console.log('📦 New database created');
   
   // Import data
-  const seedData = require('./data/seed-data.js');
   const powerPlants = require('./data/power-plants.js');
-  const newsData = require('./data/news.json');
-  const papersData = require('./data/papers.json');
+  console.log('📥 Loaded power plants data:', powerPlants.powerPlants.length, 'plants');
   
   // Create tables
   db.run(`
@@ -301,9 +312,10 @@ async function rebuildDatabase() {
     );
   `);
   
-  // Insert plants
+  // Insert plants with explicit column names
   const insertPlant = db.prepare(`
-    INSERT INTO power_plants VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+    INSERT INTO power_plants (name, country, region, operator, developer, capacity_mw, capacity_installed_mw, plant_type, commissioning_year, reservoir_temp_c, reservoir_depth_m, well_count, area_km2, status, grid_connection, annual_generation_gwh, thermal_output_mw, capacity_factor, lat, lng, description, notes, source, drilling_contractor, owner, turbine_manufacturer, power_units, flash_stages, injection_wells, makeup_water_source, ppa_buyer, project_cost_usd, land_area_hectares, environmental_cert, grid_operator)
+    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
   `);
   
   for (const plant of powerPlants.powerPlants) {
@@ -330,7 +342,7 @@ async function rebuildDatabase() {
 
 // Start server
 const server = app.listen(PORT, '0.0.0.0', async () => {
-  console.log(`🌋 Geothermal Hub v${require('./package.json').version} starting...`);
+  console.log(`🌋 Geothermal Hub v2.0.0 starting...`);
   try {
     db = await rebuildDatabase();
     console.log('✅ Database ready');
