@@ -10,6 +10,7 @@ const dbPath = path.join(__dirname, 'data/geothermal.db');
 let db = null;
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
 
 // Health check
 app.get('/health', (req, res) => res.status(200).send('OK'));
@@ -188,7 +189,7 @@ app.get('/api/paper-sources', (req, res) => {
   }
 });
 
-// Podcasts API - Get all papers with NotebookLM podcasts
+// Podcasts API
 app.get('/api/podcasts', (req, res) => {
   if (!db) return res.status(500).json({ error: 'Database initializing...' });
   try {
@@ -211,7 +212,6 @@ app.get('/api/podcasts', (req, res) => {
   }
 });
 
-// Add NotebookLM URL to paper
 app.post('/api/podcasts', express.json(), (req, res) => {
   if (!db) return res.status(500).json({ error: 'Database initializing...' });
   const { paper_id, notebooklm_url } = req.body;
@@ -221,17 +221,6 @@ app.post('/api/podcasts', express.json(), (req, res) => {
   }
 
   try {
-    // Ensure columns exist
-    const columns = db.exec("PRAGMA table_info(papers)");
-    const columnNames = columns[0]?.values?.map(row => row[1]) || [];
-    
-    if (!columnNames.includes('notebooklm_url')) {
-      db.run("ALTER TABLE papers ADD COLUMN notebooklm_url TEXT");
-    }
-    if (!columnNames.includes('notebooklm_status')) {
-      db.run("ALTER TABLE papers ADD COLUMN notebooklm_status TEXT DEFAULT 'available'");
-    }
-
     if (paper_id) {
       const stmt = db.prepare(`
         UPDATE papers 
@@ -252,23 +241,93 @@ app.post('/api/podcasts', express.json(), (req, res) => {
   }
 });
 
-// Start server first, then init DB
-const server = app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🌋 Geothermal Hub listening on port ${PORT}`);
-  initDB();
-});
-
-async function initDB() {
-  try {
-    const SQL = await initSqlJs();
-    // Always rebuild database from source files to ensure latest data
-    console.log('📦 Rebuilding database...');
-    const { execSync } = require('child_process');
-    execSync('node scripts/import-all.js', { cwd: __dirname, stdio: 'inherit' });
-    const newBuffer = fs.readFileSync(dbPath);
-    db = new SQL.Database(newBuffer);
-    console.log('✅ Database rebuilt successfully');
-  } catch (err) {
-    console.error('Failed to init database:', err);
+// Build database directly (inline import)
+async function rebuildDatabase() {
+  const SQL = await initSqlJs();
+  const db = new SQL.Database();
+  
+  // Import data
+  const seedData = require('./data/seed-data.js');
+  const powerPlants = require('./data/power-plants.js');
+  const newsData = require('./data/news.json');
+  const papersData = require('./data/papers.json');
+  
+  // Create tables
+  db.run(`
+    CREATE TABLE power_plants (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      country TEXT,
+      region TEXT,
+      operator TEXT,
+      developer TEXT,
+      capacity_mw REAL,
+      capacity_installed_mw REAL,
+      plant_type TEXT,
+      commissioning_year INTEGER,
+      reservoir_temp_c INTEGER,
+      reservoir_depth_m INTEGER,
+      well_count INTEGER,
+      area_km2 REAL,
+      status TEXT,
+      grid_connection TEXT,
+      annual_generation_gwh REAL,
+      thermal_output_mw REAL,
+      capacity_factor REAL,
+      lat REAL,
+      lng REAL,
+      description TEXT,
+      notes TEXT,
+      source TEXT,
+      drilling_contractor TEXT,
+      owner TEXT,
+      turbine_manufacturer TEXT,
+      power_units INTEGER,
+      flash_stages TEXT,
+      injection_wells INTEGER,
+      makeup_water_source TEXT,
+      ppa_buyer TEXT,
+      project_cost_usd REAL,
+      land_area_hectares REAL,
+      environmental_cert TEXT,
+      grid_operator TEXT
+    );
+  `);
+  
+  // Insert plants
+  const insertPlant = db.prepare(`
+    INSERT INTO power_plants VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+  `);
+  
+  for (const plant of powerPlants.powerPlants) {
+    insertPlant.run([
+      null, plant.name, plant.country, plant.region, plant.operator, plant.developer,
+      plant.capacity_mw, plant.capacity_installed_mw, plant.plant_type, plant.commissioning_year,
+      plant.reservoir_temp_c, plant.reservoir_depth_m, plant.well_count, plant.area_km2, plant.status,
+      plant.grid_connection, plant.annual_generation_gwh, plant.thermal_output_mw || null, plant.capacity_factor,
+      plant.coordinates?.lat, plant.coordinates?.lng, plant.description, plant.notes, plant.source,
+      plant.drilling_contractor || null, plant.owner || null, plant.turbine_manufacturer || null,
+      plant.power_units || null, plant.flash_stages || null, plant.injection_wells || null,
+      plant.makeup_water_source || null, plant.ppa_buyer || null, plant.project_cost_usd || null,
+      plant.land_area_hectares || null, plant.environmental_cert || null, plant.grid_operator || null
+    ]);
   }
+  insertPlant.free();
+  
+  // Save
+  const data = db.export();
+  fs.writeFileSync(dbPath, Buffer.from(data));
+  console.log('✅ Database rebuilt with all fields');
+  return db;
 }
+
+// Start server
+const server = app.listen(PORT, '0.0.0.0', async () => {
+  console.log(`🌋 Geothermal Hub v${require('./package.json').version} starting...`);
+  try {
+    db = await rebuildDatabase();
+    console.log('✅ Database ready');
+  } catch (err) {
+    console.error('❌ Failed to rebuild database:', err);
+  }
+});
