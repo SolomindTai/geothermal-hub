@@ -320,7 +320,7 @@ async function rebuildDatabase() {
   
   for (const plant of powerPlants.powerPlants) {
     insertPlant.run([
-      null, plant.name, plant.country, plant.region, plant.operator, plant.developer,
+      plant.name, plant.country, plant.region, plant.operator, plant.developer,
       plant.capacity_mw, plant.capacity_installed_mw, plant.plant_type, plant.commissioning_year,
       plant.reservoir_temp_c, plant.reservoir_depth_m, plant.well_count, plant.area_km2, plant.status,
       plant.grid_connection, plant.annual_generation_gwh, plant.thermal_output_mw || null, plant.capacity_factor,
