@@ -188,6 +188,70 @@ app.get('/api/paper-sources', (req, res) => {
   }
 });
 
+// Podcasts API - Get all papers with NotebookLM podcasts
+app.get('/api/podcasts', (req, res) => {
+  if (!db) return res.status(500).json({ error: 'Database initializing...' });
+  try {
+    const result = db.exec(`
+      SELECT id, title, authors, notebooklm_url, notebooklm_status, published, source, summary
+      FROM papers 
+      WHERE notebooklm_url IS NOT NULL
+      ORDER BY published DESC
+    `);
+    if (!result.length) return res.json({ lastUpdated: new Date().toISOString(), items: [] });
+    const columns = result[0].columns;
+    const rows = result[0].values.map(row => {
+      const obj = {};
+      columns.forEach((col, i) => obj[col] = row[i]);
+      return obj;
+    });
+    res.json({ lastUpdated: new Date().toISOString(), items: rows });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Add NotebookLM URL to paper
+app.post('/api/podcasts', express.json(), (req, res) => {
+  if (!db) return res.status(500).json({ error: 'Database initializing...' });
+  const { paper_id, notebooklm_url } = req.body;
+  
+  if (!notebooklm_url) {
+    return res.status(400).json({ error: 'notebooklm_url is required' });
+  }
+
+  try {
+    // Ensure columns exist
+    const columns = db.exec("PRAGMA table_info(papers)");
+    const columnNames = columns[0]?.values?.map(row => row[1]) || [];
+    
+    if (!columnNames.includes('notebooklm_url')) {
+      db.run("ALTER TABLE papers ADD COLUMN notebooklm_url TEXT");
+    }
+    if (!columnNames.includes('notebooklm_status')) {
+      db.run("ALTER TABLE papers ADD COLUMN notebooklm_status TEXT DEFAULT 'available'");
+    }
+
+    if (paper_id) {
+      const stmt = db.prepare(`
+        UPDATE papers 
+        SET notebooklm_url = ?, notebooklm_status = 'available'
+        WHERE id = ?
+      `);
+      stmt.run([notebooklm_url, parseInt(paper_id)]);
+      stmt.free();
+    }
+
+    // Save database
+    const data = db.export();
+    fs.writeFileSync(dbPath, Buffer.from(data));
+    
+    res.json({ success: true, notebooklm_url });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // Start server first, then init DB
 const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`🌋 Geothermal Hub listening on port ${PORT}`);

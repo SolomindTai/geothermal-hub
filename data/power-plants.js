@@ -25,7 +25,18 @@ const powerPlants = [
     description: '全球最大地熱發電複合體，包含22座電廠',
     notes: 'Largest geothermal complex in the world. Dry steam field.',
     source: 'US EIA, Calpine',
-    drilling_contractor: 'Various Contractors'
+    drilling_contractor: 'Various Contractors',
+    owner: 'Calpine Corporation',
+    turbine_manufacturer: 'Mitsubishi / GE',
+    power_units: 22,
+    flash_stages: 'Dry Steam',
+    injection_wells: 50,
+    makeup_water_source: 'Santa Rosa Recycled Water',
+    ppa_buyer: 'Pacific Gas & Electric',
+    project_cost_usd: null,
+    land_area_hectares: 11700,
+    environmental_cert: 'ISO 14001',
+    grid_operator: 'CAISO'
   },
   {
     name: 'Salton Sea (Imperial Valley)',
@@ -49,7 +60,18 @@ const powerPlants = [
     description: '高溫鹵水地熱田，富含鋰礦',
     notes: 'High-salinity brine, lithium extraction potential',
     source: 'US EIA',
-    drilling_contractor: 'Various Contractors'
+    drilling_contractor: 'Various Contractors',
+    owner: 'Berkshire Hathaway Energy',
+    turbine_manufacturer: 'Fuji Electric',
+    power_units: 10,
+    flash_stages: 'Double Flash',
+    injection_wells: 40,
+    makeup_water_source: 'Produced Water',
+    ppa_buyer: 'Southern California Edison',
+    project_cost_usd: null,
+    land_area_hectares: 2500,
+    environmental_cert: '',
+    grid_operator: 'CAISO'
   },
   {
     name: 'Puna Geothermal Venture',
@@ -97,7 +119,18 @@ const powerPlants = [
     description: '全球最大商業化EGS計畫，供電給Google資料中心',
     notes: 'First large-scale commercial EGS project, Google PPA',
     source: 'Fervo Energy',
-    drilling_contractor: 'Fervo Energy Drilling'
+    drilling_contractor: 'Fervo Energy Drilling',
+    owner: 'Fervo Energy',
+    turbine_manufacturer: 'Ormat',
+    power_units: 8,
+    flash_stages: 'Binary',
+    injection_wells: 12,
+    makeup_water_source: 'Groundwater',
+    ppa_buyer: 'Google',
+    project_cost_usd: 2000000000,
+    land_area_hectares: 1000,
+    environmental_cert: '',
+    grid_operator: 'PacifiCorp'
   },
   {
     name: 'Project Red (Fervo)',
@@ -147,7 +180,18 @@ const powerPlants = [
     description: '全球最大單一合約地熱電廠',
     notes: 'Largest single-contract geothermal plant in the world',
     source: 'Ormat, Medco',
-    drilling_contractor: 'Star Energy Drilling'
+    drilling_contractor: 'Star Energy Drilling',
+    owner: 'Sarulla Operations Ltd (Medco/INPEX/Itochu/Ormat/Kyushu)',
+    turbine_manufacturer: 'Toshiba',
+    power_units: 3,
+    flash_stages: 'Single Flash + Binary',
+    injection_wells: 15,
+    makeup_water_source: 'Condensate',
+    ppa_buyer: 'PLN (Indonesia)',
+    project_cost_usd: 1700000000,
+    land_area_hectares: 5000,
+    environmental_cert: 'ISO 14001',
+    grid_operator: 'PLN'
   },
   {
     name: 'Wayang Windu',
@@ -514,7 +558,18 @@ const powerPlants = [
     description: '全球最大地熱熱電共生電廠，配備碳捕捉設備',
     notes: 'Worlds largest geothermal CHP plant. Includes Carbfix CO2 injection project.',
     source: 'ON Power',
-    drilling_contractor: 'Mannvit Engineering'
+    drilling_contractor: 'Mannvit Engineering',
+    owner: 'Reykjavik Energy',
+    turbine_manufacturer: 'Mitsubishi',
+    power_units: 6,
+    flash_stages: 'Double Flash',
+    injection_wells: 10,
+    makeup_water_source: 'Geothermal Condensate',
+    ppa_buyer: 'Landsvirkjun Grid',
+    project_cost_usd: 400000000,
+    land_area_hectares: 2000,
+    environmental_cert: 'ISO 14001, Carbfix Carbon Capture',
+    grid_operator: 'Landsnet'
   },
   {
     name: 'Nesjavellir',
@@ -614,7 +669,18 @@ const powerPlants = [
     description: '全球第一座地熱發電廠，發電超過110年',
     notes: 'Worlds first geothermal power plant (1904 experimental, 1913 commercial)',
     source: 'Enel',
-    drilling_contractor: 'Enel Drilling Team'
+    drilling_contractor: 'Enel Drilling Team',
+    owner: 'Enel Green Power',
+    turbine_manufacturer: 'Ansaldo / GE',
+    power_units: 34,
+    flash_stages: 'Dry Steam',
+    injection_wells: 30,
+    makeup_water_source: 'Condensate',
+    ppa_buyer: 'Terna (Italian Grid)',
+    project_cost_usd: null,
+    land_area_hectares: 10000,
+    environmental_cert: 'ISO 14001',
+    grid_operator: 'Terna'
   },
   {
     name: 'Monte Amiata',
@@ -1116,7 +1182,18 @@ const powerPlants = [
     description: '台灣首座商轉地熱電廠',
     notes: 'First commercial geothermal plant in Taiwan',
     source: '結元能源',
-    drilling_contractor: '結元能源 Drilling Team'
+    drilling_contractor: '結元能源 Drilling Team',
+    owner: '結元能源開發股份有限公司',
+    turbine_manufacturer: 'Ormat',
+    power_units: 2,
+    flash_stages: 'Binary',
+    injection_wells: 2,
+    makeup_water_source: 'Groundwater',
+    ppa_buyer: '台灣電力公司',
+    project_cost_usd: 30000000,
+    land_area_hectares: 3,
+    environmental_cert: '',
+    grid_operator: '台灣電力公司'
   },
   {
     name: '仁澤地熱 (Renze)',

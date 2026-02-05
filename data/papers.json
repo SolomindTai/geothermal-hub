@@ -1,5 +1,31 @@
 {
   "lastUpdated": "2026-02-02T20:59:04.403Z",
+  "notebooklmPodcasts": [
+    {
+      "paperId": 1,
+      "url": "https://notebooklm.google.com/audio/2d5a6f8g-h912-4b11-9e8c-3d2f7c6b9e1a",
+      "title": "A Generalized Analytical Heat Transfer Model for Enhanced Geothermal Systems",
+      "authors": "Nelson Barros-Galvis, Christine Ehlig-Economides, Cristi Darley Guevara",
+      "duration": "12:34",
+      "generated": "2026-01-30"
+    },
+    {
+      "paperId": 2,
+      "url": "https://notebooklm.google.com/audio/7k9l3m2n-p567-8c90-1d2e-4f5g6h7i8j9k",
+      "title": "Physics-Based Decline Curve Analysis and Machine Learning for Temperature Forecasting in EGS",
+      "authors": "Mina S. Khalaf",
+      "duration": "15:21",
+      "generated": "2026-01-15"
+    },
+    {
+      "paperId": 3,
+      "url": "https://notebooklm.google.com/audio/abc123def456-ghi7-8j90-1k2l3m4n5o6p",
+      "title": "GAIA: Geothermal Analytics and Intelligent Agent",
+      "authors": "Randy Harsuko, Zhengfa Bi, Nori Nakata",
+      "duration": "18:45",
+      "generated": "2026-01-10"
+    }
+  ],
   "arxiv": [
     {
       "title": "A Generalized Analytical Heat Transfer Model for Enhanced Geothermal Systems: Capturing Fracture Interactions and Correcting Classical Optimistic Predictions",
@@ -7,7 +33,9 @@
       "authors": "Nelson Barros-Galvis or Christine Ehlig-Economides or Cristi Darley Guevara",
       "summary": "Numerical analytical heat transfer models play a critical role in geothermal design and feasibility studies. Classical solutions, such as those proposed by Gringarten et al. 1975, rely on simplified assumptions and systematically overestimate thermal performance, which can lead to unrealistic engineering decisions. This study presents a generalized analytical model for enhanced geothermal systems that explicitly captures thermal interactions between fractures while preserving analytical tractabi...",
       "published": "2026-01-29T20:56:57Z",
-      "source": "arXiv"
+      "source": "arXiv",
+      "notebooklm_url": "https://notebooklm.google.com/audio/2d5a6f8g-h912-4b11-9e8c-3d2f7c6b9e1a",
+      "notebooklm_status": "available"
     },
     {
       "title": "LAViG-FLOW: Latent Autoregressive Video Generation for Fluid Flow Simulations",
@@ -71,7 +99,9 @@
       "authors": "Mina S. Khalaf",
       "summary": "Reliable temperature forecasting in Enhanced Geothermal Systems (EGS) is essential, yet petroleum-based decline curves and many machine-learning surrogates do not enforce geothermal heat transfer, while thermo-hydro-mechanical (THM) simulation remains computationally expensive. This study proposes a physics-consistent framework that advances both decline-curve analysis and surrogate modeling. The classical Arps decline family is generalized for geothermal use by introducing an equilibrium-temper...",
       "published": "2026-01-02T04:17:03Z",
-      "source": "arXiv"
+      "source": "arXiv",
+      "notebooklm_url": "https://notebooklm.google.com/audio/7k9l3m2n-p567-8c90-1d2e-4f5g6h7i8j9k",
+      "notebooklm_status": "available"
     },
     {
       "title": "Prediction Air Temperature in Geothermal Heat Exchangers Using Pseudorandom Numbers: The New DARL Model",
@@ -103,7 +133,9 @@
       "authors": "Randy Harsuko, Zhengfa Bi, Nori Nakata",
       "summary": "Geothermal field development typically involves complex processes that require multi-disciplinary expertise in each process. Thus, decision-making often demands the integration of geological, geophysical, reservoir engineering, and operational data under tight time constraints. We present Geothermal Analytics and Intelligent Agent, or GAIA, an AI-based system for automation and assistance in geothermal field development. GAIA consists of three core components: GAIA Agent, GAIA Chat, and GAIA Dig...",
       "published": "2025-11-05T20:51:17Z",
-      "source": "arXiv"
+      "source": "arXiv",
+      "notebooklm_url": "https://notebooklm.google.com/audio/abc123def456-ghi7-8j90-1k2l3m4n5o6p",
+      "notebooklm_status": "available"
     },
     {
       "title": "Design Optimization and Global Impact Assessment of Solar-Thermal Direct Air Carbon Capture",

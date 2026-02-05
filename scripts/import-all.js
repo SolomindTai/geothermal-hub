@@ -69,7 +69,18 @@ async function main() {
       description TEXT,
       notes TEXT,
       source TEXT,
-      drilling_contractor TEXT
+      drilling_contractor TEXT,
+      owner TEXT,
+      turbine_manufacturer TEXT,
+      power_units INTEGER,
+      flash_stages TEXT,
+      injection_wells INTEGER,
+      makeup_water_source TEXT,
+      ppa_buyer TEXT,
+      project_cost_usd REAL,
+      land_area_hectares REAL,
+      environmental_cert TEXT,
+      grid_operator TEXT
     );
 
     CREATE TABLE news (
@@ -91,6 +102,8 @@ async function main() {
       summary TEXT,
       published TEXT,
       source TEXT,
+      notebooklm_url TEXT,
+      notebooklm_status TEXT DEFAULT 'available',
       fetched_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 
@@ -143,8 +156,9 @@ async function main() {
   const insertPlant = db.prepare(`
     INSERT INTO power_plants (name, country, region, operator, developer, capacity_mw, capacity_installed_mw, 
       plant_type, commissioning_year, reservoir_temp_c, reservoir_depth_m, well_count, area_km2, status,
-      grid_connection, annual_generation_gwh, thermal_output_mw, capacity_factor, lat, lng, description, notes, source, drilling_contractor)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      grid_connection, annual_generation_gwh, thermal_output_mw, capacity_factor, lat, lng, description, notes, source, drilling_contractor,
+      owner, turbine_manufacturer, power_units, flash_stages, injection_wells, makeup_water_source, ppa_buyer, project_cost_usd, land_area_hectares, environmental_cert, grid_operator)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
 
   for (const plant of powerPlants.powerPlants) {
@@ -153,7 +167,10 @@ async function main() {
       plant.capacity_mw, plant.capacity_installed_mw, plant.plant_type, plant.commissioning_year,
       plant.reservoir_temp_c, plant.reservoir_depth_m, plant.well_count, plant.area_km2, plant.status,
       plant.grid_connection, plant.annual_generation_gwh, plant.thermal_output_mw || null, plant.capacity_factor,
-      plant.coordinates?.lat, plant.coordinates?.lng, plant.description, plant.notes, plant.source, plant.drilling_contractor || null
+      plant.coordinates?.lat, plant.coordinates?.lng, plant.description, plant.notes, plant.source, plant.drilling_contractor || null,
+      plant.owner || null, plant.turbine_manufacturer || null, plant.power_units || null, plant.flash_stages || null,
+      plant.injection_wells || null, plant.makeup_water_source || null, plant.ppa_buyer || null, plant.project_cost_usd || null,
+      plant.land_area_hectares || null, plant.environmental_cert || null, plant.grid_operator || null
     ]);
   }
   insertPlant.free();
@@ -177,19 +194,29 @@ async function main() {
 
   // Insert papers from JSON file
   const insertPaper = db.prepare(`
-    INSERT INTO papers (title, link, authors, summary, published, source)
-    VALUES (?, ?, ?, ?, ?, ?)
+    INSERT INTO papers (title, link, authors, summary, published, source, notebooklm_url, notebooklm_status)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   `);
 
   // Combine papers from different sources
   const allPapers = [
-    ...(papersData.arxiv || []),
-    ...(papersData.semantic || []),
-    ...(papersData.other || []),
+    ...(papersData.arxiv || []).map(p => ({ ...p, source: 'arXiv' })),
+    ...(papersData.semantic || []).map(p => ({ ...p, source: 'Semantic Scholar' })),
+    ...(papersData.geothermics || []).map(p => ({ ...p, source: 'Geothermics' })),
+    ...(papersData.other || []).map(p => ({ ...p, source: 'Other' })),
   ];
 
   for (const paper of allPapers) {
-    insertPaper.run([paper.title, paper.link, paper.authors, paper.summary, paper.published, paper.source]);
+    insertPaper.run([
+      paper.title, 
+      paper.link, 
+      paper.authors || '', 
+      paper.summary || '', 
+      paper.published || '', 
+      paper.source,
+      paper.notebooklm_url || null,
+      paper.notebooklm_status || null
+    ]);
   }
   insertPaper.free();
 
