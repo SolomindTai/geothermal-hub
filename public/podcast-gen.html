@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎙️ 生成論文 Podcast | Geothermal Hub</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f7f5; color: #333; line-height: 1.6; }
+    header { background: #2d5a3d; padding: 1.5rem 2rem; text-align: center; }
+    header h1 { font-size: 1.5rem; font-weight: 600; color: #fff; margin-bottom: 0.3rem; }
+    header p { color: rgba(255,255,255,0.8); font-size: 0.9rem; }
+    .container { max-width: 800px; margin: 0 auto; padding: 1.5rem; }
+    .card { background: #fff; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .card h2 { font-size: 1.1rem; color: #2d5a3d; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e8f5e9; }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 500; color: #555; margin-bottom: 0.4rem; }
+    .form-group label .optional { color: #999; font-weight: normal; font-size: 0.8rem; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.7rem 0.9rem; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95rem; transition: border-color 0.2s; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: #2d5a3d; }
+    .form-group textarea { min-height: 100px; resize: vertical; font-family: inherit; }
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.5rem; background: #2d5a3d; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: 500; transition: background 0.2s; }
+    .btn:hover { background: #3d7a5d; }
+    .btn-outline { background: transparent; border: 2px solid #2d5a3d; color: #2d5a3d; }
+    .btn-outline:hover { background: #2d5a3d; color: #fff; }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .instructions { background: #f0f7f0; border-left: 4px solid #2d5a3d; padding: 1rem 1.2rem; margin-bottom: 1rem; border-radius: 0 6px 6px 0; }
+    .instructions ol { margin-left: 1.2rem; margin-top: 0.5rem; }
+    .instructions li { margin-bottom: 0.5rem; font-size: 0.9rem; color: #555; }
+    .instructions li a { color: #2d5a3d; text-decoration: none; }
+    .instructions li a:hover { text-decoration: underline; }
+    .step { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+    .step-number { width: 32px; height: 32px; background: #2d5a3d; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; flex-shrink: 0; }
+    .step-content { flex: 1; }
+    .step-content h3 { font-size: 1rem; color: #333; margin-bottom: 0.3rem; }
+    .step-content p { font-size: 0.85rem; color: #666; }
+    .url-input-group { display: flex; gap: 0.5rem; }
+    .url-input-group input { flex: 1; }
+    .url-input-group .btn { padding: 0.7rem 1rem; font-size: 0.9rem; }
+    .status { padding: 0.8rem 1rem; border-radius: 6px; margin-bottom: 1rem; font-size: 0.9rem; }
+    .status.success { background: #e8f5e9; color: #2d5a3d; border: 1px solid #c8e6c9; }
+    .status.error { background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
+    .status.info { background: #e3f2fd; color: #1565c0; border: 1px solid #bbdefb; }
+    .result-box { background: #fafafa; border: 1px solid #eee; border-radius: 6px; padding: 1rem; margin-top: 1rem; }
+    .result-box h4 { font-size: 0.9rem; color: #333; margin-bottom: 0.5rem; }
+    .result-box .url { word-break: break-all; font-family: monospace; font-size: 0.85rem; color: #2d5a3d; background: #e8f5e9; padding: 0.5rem; border-radius: 4px; }
+    .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #2d5a3d; text-decoration: none; font-size: 0.9rem; margin-bottom: 1rem; }
+    .back-link:hover { text-decoration: underline; }
+    footer { text-align: center; padding: 2rem; color: #999; font-size: 0.8rem; border-top: 1px solid #eee; margin-top: 2rem; }
+    footer a { color: #2d5a3d; text-decoration: none; }
+    @media (max-width: 600px) { .container { padding: 1rem; } .card { padding: 1rem; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎙️ NotebookLM 論文 Podcast 生成器</h1>
+    <p>使用 AI 將學術論文轉換為聆聽體驗</p>
+  </header>
+  
+  <div class="container">
+    <a href="/" class="back-link">← 返回首頁</a>
+    
+    <!-- Step 1: Enter Paper Info -->
+    <div class="card">
+      <h2>📝 步驟 1：輸入論文資訊</h2>
+      <div class="form-group">
+        <label>論文標題 *</label>
+        <input type="text" id="paperTitle" placeholder="例：Enhanced Geothermal Systems: A Review of Drilling Technologies">
+      </div>
+      <div class="form-group">
+        <label>論文 PDF URL * <span class="optional">(arXiv、Semantic Scholar 或其他來源)</span></label>
+        <input type="url" id="pdfUrl" placeholder="例：https://arxiv.org/abs/2401.12345">
+      </div>
+      <div class="form-group">
+        <label>作者 <span class="optional">(可選)</span></label>
+        <input type="text" id="authors" placeholder="例：Smith, J., Wang, Y., et al.">
+      </div>
+      <div class="form-group">
+        <label>簡要說明摘要 <span class="optional">(可選)</span></label>
+        <textarea id="summary" placeholder="簡要描述論文的主要內容，方便後續參考..."></textarea>
+      </div>
+    </div>
+    
+    <!-- Step 2: Instructions -->
+    <div class="card">
+      <h2>🎧 步驟 2：使用 NotebookLM 生成 Podcast</h2>
+      
+      <div class="instructions">
+        <strong>📋 NotebookLM 使用說明：</strong>
+        <ol>
+          <li>點擊下方按鈕打開 <a href="https://notebooklm.google" target="_blank">NotebookLM</a></li>
+          <li>點擊 <strong>"Add source"</strong> 上傳論文 PDF 檔案</li>
+          <li>等待 PDF 分析完成</li>
+          <li>點擊 <strong>"Notebook guide"</strong> 按鈕</li>
+          <li>在對話框中輸入：「請用中文主持人的方式，輕鬆有趣地介紹這篇論文的主要內容」</li>
+          <li>點擊 <strong>"Generate"</strong> 生成 Podcast 音頻</li>
+          <li>生成完成後，點擊 <strong>"Share"</strong> 取得分享連結</li>
+          <li>將連結複製回下方表單保存</li>
+        </ol>
+      </div>
+      
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <a href="https://notebooklm.google" target="_blank" class="btn">🔗 打開 NotebookLM</a>
+      </div>
+    </div>
+    
+    <!-- Step 3: Save Podcast URL -->
+    <div class="card">
+      <h2>💾 步驟 3：儲存 Podcast 連結</h2>
+      
+      <div id="saveStatus"></div>
+      
+      <div class="form-group">
+        <label>NotebookLM 分享連結 *</label>
+        <input type="url" id="notebooklmUrl" placeholder="例：https://notebooklm.google.com/u/abc123/notebook/xyz...">
+      </div>
+      
+      <button class="btn" onclick="savePodcast()" id="saveBtn">
+        💾 儲存 Podcast
+      </button>
+    </div>
+    
+    <!-- Result Preview -->
+    <div class="card" id="resultCard" style="display: none;">
+      <h2>✅ Podcast 已成功儲存</h2>
+      <div class="result-box">
+        <h4>論文標題</h4>
+        <p id="resultTitle"></p>
+        
+        <h4 style="margin-top: 1rem;">NotebookLM 連結</h4>
+        <div class="url" id="resultUrl"></div>
+        
+        <div style="margin-top: 1rem;">
+          <a href="#" id="resultListenLink" target="_blank" class="btn">🎧 立即聆聽</a>
+          <a href="/" class="btn btn-outline" style="margin-left: 0.5rem;">返回首頁</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Recent Podcasts -->
+    <div class="card">
+      <h2>📚 最近的 Podcasts</h2>
+      <div id="recentPodcasts">
+        <p style="color: #888; font-size: 0.9rem;">載入中...</p>
+      </div>
+    </div>
+  </div>
+  
+  <footer>
+    <p>© 2026 台灣先進地熱 | Taiwan Advanced Geothermal</p>
+    <p style="margin-top: 0.3rem">
+      <a href="/">首頁</a> · 
+      <a href="/#papers">論文</a> · 
+      <a href="/#podcasts">Podcasts</a>
+    </p>
+  </footer>
+  
+  <script>
+    // Load recent podcasts on page load
+    document.addEventListener('DOMContentLoaded', loadRecentPodcasts);
+    
+    async function loadRecentPodcasts() {
+      try {
+        const response = await fetch('/api/podcasts');
+        const data = await response.json();
+        const container = document.getElementById('recentPodcasts');
+        
+        const podcasts = (data.items || []).slice(0, 5);
+        
+        if (podcasts.length === 0) {
+          container.innerHTML = '<p style="color: #888; font-size: 0.9rem;">暫無 Podcast，趕快生成第一個吧！</p>';
+          return;
+        }
+        
+        container.innerHTML = podcasts.map(p => `
+          <div style="padding: 0.8rem; border-bottom: 1px solid #eee; last-child: border: none;">
+            <h4 style="font-size: 0.95rem; color: #333; margin-bottom: 0.3rem;">${p.title}</h4>
+            <p style="font-size: 0.8rem; color: #888; margin-bottom: 0.3rem;">${p.authors || ''}</p>
+            ${p.notebooklm_url ? `
+              <a href="${p.notebooklm_url}" target="_blank" style="font-size: 0.85rem; color: #2d5a3d; text-decoration: none;">
+                🎧 聆聽 Podcast →
+              </a>
+            ` : ''}
+          </div>
+        `).join('');
+      } catch (error) {
+        console.error('Error loading podcasts:', error);
+        document.getElementById('recentPodcasts').innerHTML = '<p style="color: #c62828; font-size: 0.9rem;">載入失敗</p>';
+      }
+    }
+    
+    async function savePodcast() {
+      const title = document.getElementById('paperTitle').value.trim();
+      const pdfUrl = document.getElementById('pdfUrl').value.trim();
+      const authors = document.getElementById('authors').value.trim();
+      const summary = document.getElementById('summary').value.trim();
+      const notebooklmUrl = document.getElementById('notebooklmUrl').value.trim();
+      const saveBtn = document.getElementById('saveBtn');
+      const statusDiv = document.getElementById('saveStatus');
+      
+      // Validation
+      if (!title || !pdfUrl || !notebooklmUrl) {
+        statusDiv.innerHTML = '<div class="status error">請填寫所有必填欄位（標題、PDF URL 和 NotebookLM 連結）</div>';
+        return;
+      }
+      
+      // Validate URLs
+      try {
+        new URL(pdfUrl);
+        new URL(notebooklmUrl);
+      } catch (e) {
+        statusDiv.innerHTML = '<div class="status error">請輸入有效的 URL</div>';
+        return;
+      }
+      
+      // Disable button during submission
+      saveBtn.disabled = true;
+      saveBtn.innerText = '儲存中...';
+      
+      try {
+        const response = await fetch('/api/podcasts/add', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, pdf_url: pdfUrl, authors, summary, notebooklm_url: notebooklmUrl })
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          // Show success
+          statusDiv.innerHTML = '<div class="status success">✅ Podcast 已成功儲存！</div>';
+          
+          // Show result card
+          document.getElementById('resultCard').style.display = 'block';
+          document.getElementById('resultTitle').textContent = title;
+          document.getElementById('resultUrl').textContent = notebooklmUrl;
+          document.getElementById('resultListenLink').href = notebooklmUrl;
+          
+          // Clear form
+          document.getElementById('paperTitle').value = '';
+          document.getElementById('pdfUrl').value = '';
+          document.getElementById('authors').value = '';
+          document.getElementById('summary').value = '';
+          document.getElementById('notebooklmUrl').value = '';
+          
+          // Reload recent podcasts
+          loadRecentPodcasts();
+        } else {
+          statusDiv.innerHTML = `<div class="status error">❌ 儲存失敗：${result.error || '未知錯誤'}</div>`;
+        }
+      } catch (error) {
+        statusDiv.innerHTML = `<div class="status error">❌ 網路錯誤：${error.message}</div>`;
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerText = '💾 儲存 Podcast';
+      }
+    }
+  </script>
+</body>
+</html>

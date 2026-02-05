@@ -251,6 +251,51 @@ app.post('/api/podcasts', express.json(), (req, res) => {
   }
 });
 
+// Add new podcast with full details
+app.post('/api/podcasts/add', express.json(), (req, res) => {
+  if (!db) return res.status(500).json({ error: 'Database initializing...' });
+  const { paper_id, title, pdf_url, authors, summary, notebooklm_url } = req.body;
+  
+  if (!title || !pdf_url || !notebooklm_url) {
+    return res.status(400).json({ error: 'title, pdf_url, and notebooklm_url are required' });
+  }
+
+  try {
+    // Check if paper with this URL already exists
+    const existing = db.exec(`SELECT id FROM papers WHERE link = '${pdf_url.replace(/'/g, "''")}' LIMIT 1`);
+    
+    let stmt;
+    if (existing.length && existing[0].values.length > 0) {
+      // Update existing paper
+      const existingId = existing[0].values[0][0];
+      stmt = db.prepare(`
+        UPDATE papers 
+        SET notebooklm_url = ?, notebooklm_status = 'available', title = ?, authors = ?, summary = ?
+        WHERE id = ?
+      `);
+      stmt.run([notebooklm_url, title, authors || '', summary || '', existingId]);
+    } else {
+      // Insert new paper entry
+      const timestamp = new Date().toISOString();
+      stmt = db.prepare(`
+        INSERT INTO papers (title, link, authors, summary, notebooklm_url, notebooklm_status, source, published, fetched_at)
+        VALUES (?, ?, ?, ?, ?, 'available', 'NotebookLM', ?, ?)
+      `);
+      stmt.run([title, pdf_url, authors || '', summary || '', notebooklm_url, timestamp, timestamp]);
+    }
+    stmt.free();
+
+    // Save database
+    const data = db.export();
+    fs.writeFileSync(dbPath, Buffer.from(data));
+    
+    res.json({ success: true, notebooklm_url, message: 'Podcast saved successfully' });
+  } catch (e) {
+    console.error('Error saving podcast:', e);
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // Build database using the import script
 async function rebuildDatabase() {
   // Delete old database
