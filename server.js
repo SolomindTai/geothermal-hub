@@ -5,7 +5,7 @@ const path = require('path');
 
 const app = express();
 const PORT = parseInt(process.env.PORT) || 3001;
-const dbPath = path.join(__dirname, 'data/geothermal.db');
+const dbPath = '/tmp/geothermal.db';
 
 let db = null;
 
