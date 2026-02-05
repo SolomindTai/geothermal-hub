@@ -35,7 +35,8 @@
     .btn-small { padding: 0.4rem 1rem; font-size: 0.8rem; }
     .results-info { margin-bottom: 1rem; color: #888; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
-    .card { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 1.2rem; transition: box-shadow 0.2s; }
+    .card { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 1.2rem; transition: box-shadow 0.2s; min-height: 180px; }
+.card.expanded { min-height: auto; }
     .card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
     .card h3 { font-size: 1rem; font-weight: 600; color: #333; margin-bottom: 0.5rem; }
     .card h3 a { color: #2d5a3d; text-decoration: none; }
@@ -47,7 +48,8 @@
     .tag.status-construction { background: #fff3e0; color: #e65100; }
     .tag.status-planned { background: #e3f2fd; color: #1565c0; }
     .description { font-size: 0.85rem; color: #888; line-height: 1.5; }
-    .details { font-size: 0.8rem; color: #999; border-top: 1px solid #f0f0f0; padding-top: 0.8rem; margin-top: 0.8rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem; }
+    .details { font-size: 0.8rem; color: #999; border-top: 1px solid #f0f0f0; padding-top: 0.8rem; margin-top: 0.8rem; display: none; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.4rem; }
+.details.show { display: grid; }
     .details strong { color: #666; font-weight: 500; }
     footer { text-align: center; padding: 2rem; color: #999; font-size: 0.8rem; border-top: 1px solid #eee; margin-top: 2rem; background: #fff; }
     footer a { color: #2d5a3d; text-decoration: none; }
@@ -148,7 +150,53 @@
     async function loadFilters(){try{const[pC,pT,eC,eCo]=await Promise.all([fetch('/api/plant-countries').then(r=>r.json()),fetch('/api/plant-types').then(r=>r.json()),fetch('/api/exhibitor-categories').then(r=>r.json()),fetch('/api/exhibitor-countries').then(r=>r.json())]);[pC,pT,eC,eCo].forEach((a,i)=>{const s=[document.getElementById('plantCountry'),document.getElementById('plantType'),document.getElementById('exhibitorCategory'),document.getElementById('exhibitorCountry')][i];if(s)a.forEach(c=>s.add(new Option((cf[c]||'🏳️')+' '+c,c)));});}catch(e){}}
     async function loadPlants(){try{const r=await fetch('/api/plants');renderPlants(await r.json());}catch(e){}}
     async function searchPlants(){const p=new URLSearchParams();['plantQuery','plantCountry','plantType','plantStatus'].forEach(k=>{const v=document.getElementById(k).value;if(v)p.set(k,v);});const r=await fetch('/api/plants?'+p);renderPlants(await r.json());}
-    function renderPlants(d){const c=document.getElementById('plantResults'),i=document.getElementById('plantInfo'),t=d.reduce((s,p)=>s+(p.capacity_mw||0),0);i.innerText=`${d.length} 座電廠，${Math.round(t).toLocaleString()} MW`;if(!d.length){c.innerHTML='<div class="loading">無符合條件</div>';return;}c.innerHTML=d.map(p=>{const sc=p.status==='Operating'?'status-operating':p.status==='Under Construction'?'status-construction':'status-planned';return`<div class="card"><h3>${cf[p.country]||'🏳️'} ${p.name}</h3><div class="meta"><span class="tag capacity">⚡ ${p.capacity_mw?.toLocaleString()||'?'} MW</span><span class="tag ${sc}">${p.status||''}</span><span class="tag">${p.plant_type||''}</span></div><p class="description">${p.description||''}</p><div class="details"><span><strong>運營商:</strong>${p.operator||'-'}</span><span><strong>地區:</strong>${p.region||'-'}</span><span><strong>鑽井廠商:</strong>${p.drilling_contractor||'-'}</span><span><strong>業主:</strong>${p.owner||'-'}</span><span><strong>渦輪機:</strong>${p.turbine_manufacturer||'-'}</span><span><strong>發電機組:</strong>${p.power_units||'-'}</span><span><strong>閃蒸階段:</strong>${p.flash_stages||'-'}</span><span><strong>注入井:</strong>${p.injection_wells||'-'}</span><span><strong>電網營運商:</strong>${p.grid_operator||'-'}</span><span><strong>購電方:</strong>${p.ppa_buyer||'-'}</span></div></div>`;}).join('');}
+    function renderPlants(d){
+  const c=document.getElementById('plantResults'),i=document.getElementById('plantInfo'),t=d.reduce((s,p)=>s+(p.capacity_mw||0),0);
+  i.innerText=`${d.length} 座電廠，${Math.round(t).toLocaleString()} MW`;
+  if(!d.length){c.innerHTML='<div class="loading">無符合條件</div>';return;}
+  c.innerHTML=d.map((p,idx)=>{
+    const sc=p.status==='Operating'?'status-operating':p.status==='Under Construction'?'status-construction':'status-planned';
+    return`<div class="card" id="plant-${idx}">
+      <h3>${cf[p.country]||'🏳️'} ${p.name}</h3>
+      <div class="meta">
+        <span class="tag capacity">⚡ ${p.capacity_mw?.toLocaleString()||'?'} MW</span>
+        <span class="tag ${sc}">${p.status||''}</span>
+        <span class="tag">${p.plant_type||''}</span>
+      </div>
+      <p class="description">${p.description||''}</p>
+      <div class="details" id="details-${idx}">
+        <span><strong>運營商:</strong>${p.operator||'-'}</span>
+        <span><strong>開發商:</strong>${p.developer||'-'}</span>
+        <span><strong>地區:</strong>${p.region||'-'}</span>
+        <span><strong>鑽井廠商:</strong>${p.drilling_contractor||'-'}</span>
+        <span><strong>業主:</strong>${p.owner||'-'}</span>
+        <span><strong>渦輪機:</strong>${p.turbine_manufacturer||'-'}</span>
+        <span><strong>發電機組:</strong>${p.power_units||'-'}</span>
+        <span><strong>閃蒸階段:</strong>${p.flash_stages||'-'}</span>
+        <span><strong>注入井:</strong>${p.injection_wells||'-'}</span>
+        <span><strong>回注井:</strong>${p.injection_wells||'-'}</span>
+        <span><strong>電網營運商:</strong>${p.grid_operator||'-'}</span>
+        <span><strong>購電方:</strong>${p.ppa_buyer||'-'}</span>
+        <span><strong>面積:</strong>${p.area_km2||'-'} km²</span>
+        <span><strong>井數:</strong>${p.well_count||'-'}</span>
+        <span><strong>回注井:</strong>${p.injection_wells||'-'}</span>
+        <span><strong>儲層溫度:</strong>${p.reservoir_temp_c||'-'} °C</span>
+        <span><strong>儲層深度:</strong>${p.reservoir_depth_m||'-'} m</span>
+        <span><strong>商轉年份:</strong>${p.commissioning_year||'-'}</span>
+        <span><strong>容量因數:</strong>${p.capacity_factor?(p.capacity_factor*100).toFixed(0)+'%':'-'}</span>
+        <span><strong>年發電量:</strong>${p.annual_generation_gwh?.toLocaleString()||'-'} GWh</span>
+        <span><strong>專案成本:</strong>${p.project_cost_usd?'$'+p.project_cost_usd.toLocaleString()+'M':'-'}</span>
+      </div>
+      <button class="btn-expand" onclick="togglePlantDetails(${idx})" style="margin-top:0.8rem;padding:0.4rem 1rem;background:#f5f5f5;border:1px solid #ddd;border-radius:4px;font-size:0.8rem;cursor:pointer;color:#666">📋 更多資訊 ▼</button>
+    </div>`;
+  }).join('');
+}
+
+function togglePlantDetails(idx){
+  const card=document.getElementById('plant-'+idx),details=document.getElementById('details-'+idx),btn=card.querySelector('.btn-expand');
+  if(details.style.display==='none'){details.style.display='grid';btn.innerHTML='📋 更多資訊 ▼';card.classList.remove('expanded');}
+  else{details.style.display='none';btn.innerHTML='📋 更多資訊 ▲';card.classList.add('expanded');}
+}
     async function searchExhibitors(){const p=new URLSearchParams();['exhibitorQuery','exhibitorCategory','exhibitorCountry'].forEach(k=>{const v=document.getElementById(k).value;if(v)p.set(k,v);});const r=await fetch('/api/exhibitors?'+p);renderExhibitors(await r.json());}
     function renderExhibitors(d){const c=document.getElementById('exhibitorResults'),i=document.getElementById('exhibitorInfo');i.innerText=`${d.length} 家廠商`;if(!d.length){c.innerHTML='<div class="loading">無符合條件</div>';return;}c.innerHTML=d.map(e=>`<div class="card"><h3>${cf[e.country]||'🏳️'} ${e.website?`<a href="${e.website}" target="_blank">${e.name}</a>`:e.name}</h3><div class="meta"><span class="tag">${e.category}</span><span class="tag">${e.country}</span></div><p class="description">${e.description||''}</p></div>`).join('');}
     async function loadEvents(){try{const r=await fetch('/api/events');const d=await r.json();document.getElementById('eventInfo').innerText=`${d.length} 場活動`;const c=document.getElementById('eventResults');c.innerHTML=d.map(e=>`<div class="card"><h3>📅 ${e.website?`<a href="${e.website}" target="_blank">${e.name}</a>`:e.name}</h3><div class="meta"><span class="tag">${e.year}</span><span class="tag">${e.type||''}</span></div><p class="description">${e.location||''}</p><p class="description"><strong>主辦:</strong> ${e.organizer||''}</p></div>`).join('');}catch(e){console.error('Events error:',e);}}
