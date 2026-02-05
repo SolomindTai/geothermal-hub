@@ -244,6 +244,13 @@ app.post('/api/podcasts', express.json(), (req, res) => {
 // Build database directly (inline import)
 async function rebuildDatabase() {
   const SQL = await initSqlJs();
+  
+  // Always delete old database to force rebuild
+  if (fs.existsSync(dbPath)) {
+    fs.unlinkSync(dbPath);
+    console.log('🗑️ Old database deleted');
+  }
+  
   const db = new SQL.Database();
   
   // Import data
