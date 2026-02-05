@@ -251,92 +251,23 @@ app.post('/api/podcasts', express.json(), (req, res) => {
   }
 });
 
-// Build database directly (inline import)
+// Build database using the import script
 async function rebuildDatabase() {
-  const SQL = await initSqlJs();
-  
-  console.log('🔄 Starting database rebuild...');
-  
   // Delete old database
   if (fs.existsSync(dbPath)) {
     fs.unlinkSync(dbPath);
-    console.log('🗑️ Old database deleted');
   }
   
-  const db = new SQL.Database();
-  console.log('📦 New database created');
+  // Run import script
+  const { execSync } = require('child_process');
+  execSync('node scripts/import-all.js', { cwd: __dirname, stdio: 'inherit' });
   
-  // Import data
-  const powerPlants = require('./data/power-plants.js');
-  console.log('📥 Loaded power plants data:', powerPlants.powerPlants.length, 'plants');
+  // Load the newly created database
+  const SQL = await initSqlJs();
+  const buffer = fs.readFileSync(dbPath);
+  const db = new SQL.Database(buffer);
   
-  // Create tables
-  db.run(`
-    CREATE TABLE power_plants (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      country TEXT,
-      region TEXT,
-      operator TEXT,
-      developer TEXT,
-      capacity_mw REAL,
-      capacity_installed_mw REAL,
-      plant_type TEXT,
-      commissioning_year INTEGER,
-      reservoir_temp_c INTEGER,
-      reservoir_depth_m INTEGER,
-      well_count INTEGER,
-      area_km2 REAL,
-      status TEXT,
-      grid_connection TEXT,
-      annual_generation_gwh REAL,
-      thermal_output_mw REAL,
-      capacity_factor REAL,
-      lat REAL,
-      lng REAL,
-      description TEXT,
-      notes TEXT,
-      source TEXT,
-      drilling_contractor TEXT,
-      owner TEXT,
-      turbine_manufacturer TEXT,
-      power_units INTEGER,
-      flash_stages TEXT,
-      injection_wells INTEGER,
-      makeup_water_source TEXT,
-      ppa_buyer TEXT,
-      project_cost_usd REAL,
-      land_area_hectares REAL,
-      environmental_cert TEXT,
-      grid_operator TEXT
-    );
-  `);
-  
-  // Insert plants with explicit column names (36 columns total)
-  const insertPlant = db.prepare(`
-    INSERT INTO power_plants (id, name, country, region, operator, developer, capacity_mw, capacity_installed_mw, plant_type, commissioning_year, reservoir_temp_c, reservoir_depth_m, well_count, area_km2, status, grid_connection, annual_generation_gwh, thermal_output_mw, capacity_factor, lat, lng, description, notes, source, drilling_contractor, owner, turbine_manufacturer, power_units, flash_stages, injection_wells, makeup_water_source, ppa_buyer, project_cost_usd, land_area_hectares, environmental_cert, grid_operator)
-    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
-  `);
-  
-  for (const plant of powerPlants.powerPlants) {
-    insertPlant.run([
-      plant.name, plant.country, plant.region, plant.operator, plant.developer,
-      plant.capacity_mw, plant.capacity_installed_mw, plant.plant_type, plant.commissioning_year,
-      plant.reservoir_temp_c, plant.reservoir_depth_m, plant.well_count, plant.area_km2, plant.status,
-      plant.grid_connection, plant.annual_generation_gwh, plant.thermal_output_mw || null, plant.capacity_factor,
-      plant.coordinates?.lat, plant.coordinates?.lng, plant.description, plant.notes, plant.source,
-      plant.drilling_contractor || null, plant.owner || null, plant.turbine_manufacturer || null,
-      plant.power_units || null, plant.flash_stages || null, plant.injection_wells || null,
-      plant.makeup_water_source || null, plant.ppa_buyer || null, plant.project_cost_usd || null,
-      plant.land_area_hectares || null, plant.environmental_cert || null, plant.grid_operator || null
-    ]);
-  }
-  insertPlant.free();
-  
-  // Save
-  const data = db.export();
-  fs.writeFileSync(dbPath, Buffer.from(data));
-  console.log('✅ Database rebuilt with all fields');
+  console.log('✅ Database rebuilt successfully');
   return db;
 }
 
