@@ -168,17 +168,17 @@ app.get('/api/news', (req, res) => {
   }
 });
 
-// Papers API
+// Papers API - include NotebookLM podcast info
 app.get('/api/papers', (req, res) => {
   if (!db) return res.status(500).json({ error: 'Database initializing...' });
   const { source } = req.query;
-  let query = 'SELECT * FROM papers WHERE 1=1';
-  if (source) query += ` AND source = '${source}'`;
-  query += ' ORDER BY published DESC LIMIT 20';
+  let query = 'SELECT p.*, np.url as podcast_url, np.duration as podcast_duration, np.generated as podcast_generated FROM papers p LEFT JOIN notebooklm_podcasts np ON p.id = np.paper_id WHERE 1=1';
+  if (source) query += ` AND p.source = '${source}'`;
+  query += ' ORDER BY p.published DESC LIMIT 20';
   
   try {
     const result = db.exec(query);
-    if (!result.length) return res.json([]);
+    if (!result.length) return res.json({ lastUpdated: new Date().toISOString(), items: [] });
     const columns = result[0].columns;
     const rows = result[0].values.map(row => {
       const obj = {}; columns.forEach((col, i) => obj[col] = row[i]); return obj;
