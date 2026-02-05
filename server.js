@@ -315,7 +315,7 @@ async function rebuildDatabase() {
   // Insert plants with explicit column names (36 columns total)
   const insertPlant = db.prepare(`
     INSERT INTO power_plants (id, name, country, region, operator, developer, capacity_mw, capacity_installed_mw, plant_type, commissioning_year, reservoir_temp_c, reservoir_depth_m, well_count, area_km2, status, grid_connection, annual_generation_gwh, thermal_output_mw, capacity_factor, lat, lng, description, notes, source, drilling_contractor, owner, turbine_manufacturer, power_units, flash_stages, injection_wells, makeup_water_source, ppa_buyer, project_cost_usd, land_area_hectares, environmental_cert, grid_operator)
-    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
   `);
   
   for (const plant of powerPlants.powerPlants) {
