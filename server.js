@@ -261,19 +261,13 @@ const server = app.listen(PORT, '0.0.0.0', () => {
 async function initDB() {
   try {
     const SQL = await initSqlJs();
-    if (fs.existsSync(dbPath)) {
-      const buffer = fs.readFileSync(dbPath);
-      db = new SQL.Database(buffer);
-      console.log('✅ Database loaded');
-    } else {
-      console.log('📦 Creating database...');
-      // Import all data
-      const { execSync } = require('child_process');
-      execSync('node scripts/import-all.js', { cwd: __dirname });
-      const newBuffer = fs.readFileSync(dbPath);
-      db = new SQL.Database(newBuffer);
-      console.log('✅ Database created');
-    }
+    // Always rebuild database from source files to ensure latest data
+    console.log('📦 Rebuilding database...');
+    const { execSync } = require('child_process');
+    execSync('node scripts/import-all.js', { cwd: __dirname, stdio: 'inherit' });
+    const newBuffer = fs.readFileSync(dbPath);
+    db = new SQL.Database(newBuffer);
+    console.log('✅ Database rebuilt successfully');
   } catch (err) {
     console.error('Failed to init database:', err);
   }
