@@ -10,6 +10,7 @@ const dbPath = path.join(__dirname, 'data/geothermal.db');
 let db = null;
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/data', express.static(path.join(__dirname, 'data')));
 app.use(express.json());
 
 // Health check
@@ -211,7 +212,9 @@ async function rebuildDatabase() {
   execSync('node scripts/import-all.js', { cwd: __dirname, stdio: 'inherit' });
   
   // Load the newly created database
-  const SQL = await initSqlJs();
+  const SQL = await initSqlJs({
+    locateFile: file => `/data/${file}`
+  });
   const buffer = fs.readFileSync(dbPath);
   const db = new SQL.Database(buffer);
   

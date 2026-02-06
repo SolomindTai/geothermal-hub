@@ -11,7 +11,9 @@ const papersData = require(path.join(__dirname, '../data/papers.json'));
 const dbPath = path.join(__dirname, '../data/geothermal.db');
 
 async function main() {
-  const SQL = await initSqlJs();
+  const SQL = await initSqlJs({
+    locateFile: file => path.join(__dirname, '../data/', file)
+  });
   const db = new SQL.Database();
 
   console.log('Creating unified database...');
